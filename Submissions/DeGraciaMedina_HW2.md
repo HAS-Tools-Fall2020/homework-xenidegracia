@@ -16,3 +16,5 @@ I think it is important to know that for the last 2 weeks of the year, I didn't 
 
 I looked up a video of the river to see how it looks. Here is the link, just in case: [Verde River video](https://www.youtube.com/watch?v=vzXna_9EapQ)
 
+# Grade
+3/3- Great job! Nice research. 
