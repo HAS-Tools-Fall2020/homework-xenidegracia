@@ -17,6 +17,7 @@ For the rest of the year, I used the average of 2019.
 In addition to providing a summary of the forecast values you piked and why, include the following analysis in your homework submission.
 
 1. Describe the variables flow, year, month, and day. What type of objects are they, what are they composed of, and how long are they?
+
 All the variables: flow, year, month and day, are type list.
 They have a lenght of: 11578
 
@@ -45,4 +46,5 @@ Times in % that the daily flow was greater than my 2nd week prediction After yea
 
 
 4. How does the daily flow generally change from the first half of September to the second?
+
 The mean flow of the First Half of September is greater than the mean flow of the Second Half
