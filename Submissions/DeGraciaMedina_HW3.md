@@ -4,6 +4,12 @@
 
 ## Homework #3
 
+---------
+# Grade
+
+3/3 - Great job! Sorry for all the computer troubles but I'm really glad you were able to work around it. Thanks for your persistence!
+
+---
 
 ### Weekly forecast
 
@@ -41,7 +47,7 @@ Times in % that the daily flow was greater than my 2nd week prediction = 7.91155
 
 #### 3. How would your answer to the previous question change if you considered only daily flows in or before 2000? Same question for the flows in or after the year 2010? (again report total number of times and percentage)
 
-For the month of September and before 2000: 
+For the month of September and before 2000:
 
 Times that the flow was greater than my 1st week prediction Before year 2000 = 132
 
@@ -53,7 +59,7 @@ Times in % that the daily flow was greater than my 2nd week prediction Before ye
 
 
 
-For the month of September and after 2010: 
+For the month of September and after 2010:
 
 Times that the flow was greater than my 1st week prediction After year 2010 = 53
 
