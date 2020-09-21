@@ -30,6 +30,8 @@ data=pd.read_table(filepath, sep = '\t', skiprows=30,
         names=['agency_cd', 'site_no', 'datetime', 'flow', 'code']
         )
 
+print(data.head(1))
+print()
 # Expand the dates to year month day
 data[["year", "month", "day"]] =data["datetime"].str.split("-", expand=True)
 data['year'] = data['year'].astype(int)
@@ -44,7 +46,7 @@ print('The values stored within "flow_data" are all type:',type(flow_data[0,0]))
 print('The dimension of flow_data is:',flow_data.ndim)
 print('The total size of flow_data is:',flow_data.size,'. It means that it has:',flow_data.size, 'elements.')
 print('The shape of the flow_data is:', flow_data.shape)
-
+print()
 # XDG. I needed to see how my numpy looked like.
 print(flow_data)
 # Getting rid of the pandas dataframe since we wont be using it this week
@@ -56,7 +58,7 @@ print('The minimum flow of all the data since 1989 was =',min(flow_data[:,3]))
 print('The maximum flow of all the data  since 1989 was =',max(flow_data[:,3]))
 print('The mean flow of all the data  since 1989 was =',np.mean(flow_data[:,3]))
 print('The standard deviation of all the data  since 1989 was =',np.std(flow_data[:,3]))
-
+print()
 # %%
 # Starter Code
 
@@ -82,7 +84,7 @@ flow_mean = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==Stu
 print("Flow meets this criteria (last 19 days & month=9 & year=2020):", flow_count, " times.")
 print('And has an average value of:', flow_mean, "when this is true.")
 print('So the forecast for the FIRST week that comes is:', flow_mean,'cf/s.')
-
+print()
 
 # %%
 # SECOND WEEK FORECAST
@@ -109,7 +111,7 @@ flow_mean2 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==St
 print("Flow meets this criteria (last 14 days and month==9 and year==2020):", flow_count2, " times.")
 print('And has an average value of:', flow_mean2, "when this is true.")
 print('So the forecast for the SECOND week that comes is:', flow_mean2,'cf/s.')
-
+print()
 # %%
 # Seasonal Forecast
 StudyYear = 2019
@@ -433,7 +435,7 @@ if StudyMonth==12:
 # Calculate the average flow for these criteria 
 Seasonal_meanW16 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
 print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW16,'cf/s.')
-
+print()
 
 # %%
 #For my September's First Week prediction, the flow was 171.816
@@ -476,7 +478,7 @@ print("Before 2000, Flow was greater than my First prediction:", flow_count4, " 
 print("In percentage, before 2000, the flow was greater than my First prediction:", percentage2000, " %.")
 print("After 2010, Flow was greater than my First prediction:", flow_count5, " times.")
 print("In percentage, after 2010, the flow was greater than my First prediction:", percentage2010, " %.")
-
+print()
 # %%
 # Half of month calculus
 flow_FirstHalfMonth = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=15), 3]
@@ -487,11 +489,21 @@ if MeanFlowHalf1 < MeanFlowHalf2:
     print("The mean flow of the First Half of September is less than the mean flow of the Second Half")
 if MeanFlowHalf1 > MeanFlowHalf2:
     print("The mean flow of the First Half of September is greater than the mean flow of the Second Half")
-
+print()
 # %%
 # Make a histogram of data
+
+StudyYear = 2020
+StudyMonth = 9
+StudyDays = 19
+flow_count = np.sum((flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays))
+
+# this gives a list of T/F where the criteria are met
+HistogramData = np.array(flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth),3])
+
+
 # Use the linspace  function to create a set  of evenly spaced bins
-mybins = np.linspace(0, 1000, num=15)
+mybins = np.linspace(0, 1000, num=25)
 # another example using the max flow to set the upper limit for the bins
 #mybins = np.linspace(0, np.max(flow_data[:,3]), num=15) 
 #Plotting the histogram
@@ -499,16 +511,42 @@ plt.hist(flow_data[:,3], bins = mybins)
 plt.title('Streamflow')
 plt.xlabel('Flow [cf/s]')
 plt.ylabel('Count')
+plt.show()
+
+mybins2 = np.linspace(0, np.max(HistogramData), num=25) 
+#Plotting the histogram
+plt.hist(flow_data[:,3], bins = mybins2)
+plt.title('Streamflow')
+plt.xlabel('Flow [cf/s]')
+plt.ylabel('Count')
+plt.show()
+
+mybins3 = np.linspace(0, 300, num=25)
+#Plotting the histogram
+plt.hist(flow_data[:,3],bins = mybins3)
+plt.title('Streamflow')
+plt.xlabel('Flow [cf/s]')
+plt.ylabel('Count')
+plt.show()
 
 
 # Get the quantiles of flow
 # Two different approaches ---  you should get the same answer
 # just using the flow column
-flow_quants1 = np.quantile(flow_data[:,3], q=[0,0.1, 0.5, 0.9])
+flow_quants1 = np.quantile(flow_data[:,3], q=[0 , 0.1 , 0.5 , 0.9])
 print('Method one flow quantiles:', flow_quants1)
 # Or computing on a colum by column basis 
-flow_quants2 = np.quantile(flow_data, q=[0,0.1, 0.5, 0.9], axis=0)
+flow_quants2 = np.quantile(flow_data, q=[0 , 0.25 , 0.5 , 0.75], axis=0)
 # and then just printing out the values for the flow column
 print('Method two flow quantiles:', flow_quants2[:,3])
 
+# %%
+#Load and show an image with Pillow
+from PIL import Image
+
+#Load the image
+img = Image.open('C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/Submissions/VerdeRiver.jpg')
+
+#show the image
+img.show()
 # %%
