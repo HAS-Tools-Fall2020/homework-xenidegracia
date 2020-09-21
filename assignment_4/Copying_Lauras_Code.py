@@ -79,7 +79,7 @@ all_pic = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) &
 # Calculate the average flow for these same criteria 
 flow_mean = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays),3])
 
-print("Flow meets this criteria (days<19 & month=9 & year=2020):", flow_count, " times.")
+print("Flow meets this criteria (last 19 days & month=9 & year=2020):", flow_count, " times.")
 print('And has an average value of:', flow_mean, "when this is true.")
 print('So the forecast for the FIRST week that comes is:', flow_mean,'cf/s.')
 
@@ -106,7 +106,7 @@ all_pic2 = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) 
 # Calculate the average flow for these same criteria 
 flow_mean2 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
 
-print("Flow meets this criteria (days<14 and month==9 and year==2020):", flow_count2, " times.")
+print("Flow meets this criteria (last 14 days and month==9 and year==2020):", flow_count2, " times.")
 print('And has an average value of:', flow_mean2, "when this is true.")
 print('So the forecast for the SECOND week that comes is:', flow_mean2,'cf/s.')
 

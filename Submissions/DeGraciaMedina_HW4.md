@@ -12,7 +12,7 @@
 <a name="weekly"></a>
 ### **Weekly forecast**
 
-To forecast the 1st week, I used the average flow of the 3 weeks before that and for the 2nd week forecast, I used the average flow of the last week only.
+To forecast the 1st week, I used the average flow of the 19 days before that and for the 2nd week forecast, I used the average flow of the last 14 days only.
 
 
 ---
