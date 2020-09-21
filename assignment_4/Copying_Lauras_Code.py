@@ -42,6 +42,7 @@ flow_data = data[['year', 'month','day', 'flow']].to_numpy()
 print('The type of flow_data is:',type(flow_data))
 print('The values stored within "flow_data" are all type:',type(flow_data[0,0]))
 print('The dimension of flow_data is:',flow_data.ndim)
+print('The total size of flow_data is:',flow_data.size,'. It means that it has:',flow_data.size, 'elements.')
 print('The shape of the flow_data is:', flow_data.shape)
 
 # XDG. I needed to see how my numpy looked like.
