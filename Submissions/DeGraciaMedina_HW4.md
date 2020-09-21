@@ -42,24 +42,24 @@ For the rest of the year, I used the average of 2019.
 
 **3. How many times was the daily flow greater than your prediction in the month of September (express your answer in terms of the total number of times and as a percentage)?**
 
-- Times that the flow was greater than my 1st week prediction = 89939
+- Times that the flow was greater than my 1st week prediction = 239
 
-- Times in % that the daily flow was greater than my 1st week prediction =  %
+- Times in % that the daily flow was greater than my 1st week prediction = 25.18 %
 
 
 **4. How would your answer to the previous question change if you considered only daily flows in or before 2000? Same question for the flows in or after the year 2010? (again report total number of times and percentage)**
 
-- For the month of September and before 2000:
+- *For the month of September and before 2000:*
 
-- Times that the flow was greater than my 1st week prediction Before year 2000 = 51294
+  - Times that the flow was greater than my 1st week prediction Before year 2000 = 132
 
-- Times in % that the daily flow was greater than my 1st week prediction Before year 2000 = 1.140093280359302 %
+  - Times in % that the daily flow was greater than my 1st week prediction Before year 2000 = 66.38 %
 
-- For the month of September and after 2010:
+- *For the month of September and after 2010:*
 
-- Times that the flow was greater than my 1st week prediction After year 2010 = 15483
+  - Times that the flow was greater than my 1st week prediction After year 2010 = 53
 
-- Times in % that the daily flow was greater than my 1st week prediction After year 2010 =  %
+  - Times in % that the daily flow was greater than my 1st week prediction After year 2010 = 74.92 %
 
 
 **5. How does the daily flow generally change from the first half of September to the second?**

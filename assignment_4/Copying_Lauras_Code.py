@@ -65,28 +65,21 @@ print('The standard deviation of all the data  since 1989 was =',np.std(flow_dat
 StudyYear = 2020
 StudyMonth = 9
 StudyDays = 19
-flow_count = np.sum((flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays))
+flow_count = np.sum((flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays))
 
 # this gives a list of T/F where the criteria are met
-(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays)
-
+(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays)
 
 # this give the flow values where that criteria is met
-flow_pick = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), 3]
-
-
-# this give the year values where that criteria is met
-year_pic = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), 0]
-
+flow_pick = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays), 3]
 
 # this give the all rows where that criteria is met
-all_pic = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), ]
-
+all_pic = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays), ]
 
 # Calculate the average flow for these same criteria 
-flow_mean = np.mean(flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays),3])
+flow_mean = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=StudyDays),3])
 
-print("Flow meets this critera (days<19 & month=9 & year=2020):", flow_count, " times.")
+print("Flow meets this criteria (days<19 & month=9 & year=2020):", flow_count, " times.")
 print('And has an average value of:', flow_mean, "when this is true.")
 print('So the forecast for the FIRST week that comes is:', flow_mean,'cf/s.')
 
@@ -95,33 +88,351 @@ print('So the forecast for the FIRST week that comes is:', flow_mean,'cf/s.')
 # SECOND WEEK FORECAST
 StudyYear = 2020
 StudyMonth = 9
-StudyDays = 14
+StartDay = 6
+LastDay = 19
 
 # Count the number of values with days < 14 and month ==9 and year ==2020
-flow_count2 = np.sum((flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays))
+flow_count2 = np.sum((flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay))
 
 # this gives a list of T/F where the criteria are met
-(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays)
-
+(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay)
 
 # this give the flow values where that criteria is met
-flow_pick2 = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), 3]
-
-
-# this give the year values where that criteria is met
-year_pic2 = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), 0]
-
+flow_pick2 = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay), 3]
 
 # this give the all rows where that criteria is met
-all_pic2 = flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays), ]
-
+all_pic2 = flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay), ]
 
 # Calculate the average flow for these same criteria 
-flow_mean2 = np.mean(flow_data[(flow_data[:,0] == StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2] <= StudyDays),3])
+flow_mean2 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
 
-print("Flow meets this critera (days<14 and month==9 and year==2020):", flow_count2, " times.")
+print("Flow meets this criteria (days<14 and month==9 and year==2020):", flow_count2, " times.")
 print('And has an average value of:', flow_mean2, "when this is true.")
 print('So the forecast for the SECOND week that comes is:', flow_mean2,'cf/s.')
+
+# %%
+# Seasonal Forecast
+StudyYear = 2019
+
+StudyMonth = 8
+Week = 1
+StartDay = 22
+LastDay = 29
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW1 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW1,'cf/s.')
+
+StudyMonth = 9
+Week = Week + 1
+StartDay = 1
+LastDay = 5
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW2 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW2,'cf/s.')
+
+StudyMonth = 9
+Week = Week + 1
+StartDay = 6
+LastDay = 12
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW3 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW3,'cf/s.')
+
+StudyMonth = 9
+Week = Week + 1
+StartDay = 13
+LastDay = 19
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW4 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW4,'cf/s.')
+
+StudyMonth = 9
+Week = Week + 1
+StartDay = 20
+LastDay = 26
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW5 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW5,'cf/s.')
+
+StudyMonth = 9
+Week = Week + 1
+StartDay = 27
+LastDay = 31
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW6 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW6,'cf/s.')
+
+StudyMonth = 10
+Week = Week + 1
+StartDay = 4
+LastDay = 10
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW7 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW7,'cf/s.')
+
+StudyMonth = 10
+Week = Week + 1
+StartDay = 11
+LastDay = 17
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW8 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW8,'cf/s.')
+
+StudyMonth = 10
+Week = Week + 1
+StartDay = 18
+LastDay = 24
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW9 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW9,'cf/s.')
+
+StudyMonth = 10
+Week = Week + 1
+StartDay = 25
+LastDay = 31
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW10 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW10,'cf/s.')
+
+StudyMonth = 11
+Week = Week + 1
+StartDay = 1
+LastDay = 7
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW11 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW11,'cf/s.')
+
+StudyMonth = 11
+Week = Week + 1
+StartDay = 8
+LastDay = 14
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW12 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW12,'cf/s.')
+
+StudyMonth = 11
+Week = Week + 1
+StartDay = 15
+LastDay = 21
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW13 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW13,'cf/s.')
+
+StudyMonth = 11
+Week = Week + 1
+StartDay = 22
+LastDay = 28
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW14 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW14,'cf/s.')
+
+StudyMonth = 12
+Week = Week + 1
+StartDay = 1
+LastDay = 5
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW15 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW15,'cf/s.')
+
+StudyMonth = 12
+Week = Week + 1
+StartDay = 6
+LastDay = 12
+
+if StudyMonth == 8:
+    Month='August'
+if StudyMonth==9:
+    Month='September'
+if StudyMonth==10:
+    Month='October'
+if StudyMonth==11:
+    Month='November'
+if StudyMonth==12:
+    Month='December'
+
+# Calculate the average flow for these criteria 
+Seasonal_meanW16 = np.mean(flow_data[(flow_data[:,0]==StudyYear) & (flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=LastDay) & (flow_data[:,2]>=StartDay),3])
+print('The Seasonal forecast for week',Week,'(from',StartDay,'to',LastDay,'of',Month,') is:', Seasonal_meanW16,'cf/s.')
 
 
 # %%
@@ -129,49 +440,53 @@ print('So the forecast for the SECOND week that comes is:', flow_mean2,'cf/s.')
 FirstWeekFlowPrediction = 171.816
 
 # Count the number of values greater than my First Week Prediction. And also before 2000, and after 2010.
-flow_count3 = np.sum((flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]))
-flow_count4 = np.sum((flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]))
-flow_count5 = np.sum((flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]))
-
+flow_count3 = np.sum((flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction))
+flow_count4 = np.sum((flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction))
+flow_count5 = np.sum((flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction))
 flow_countTotalDaysMonth = np.sum(flow_data[:,1]==StudyMonth)
-flow_countFlowOver = np.sum((flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction))
-percentage = [flow_countFlowOver/flow_countTotalDaysMonth]*100
-
+percentage = (flow_count3/flow_countTotalDaysMonth)*100
+flow_countTotalDays2000 = np.sum((flow_data[:,1]==StudyMonth) & (flow_data[:,0]<=2000))
+percentage2000 = (flow_count3/flow_countTotalDays2000)*100
+flow_countTotalDays2010 = np.sum((flow_data[:,1]==StudyMonth) & (flow_data[:,0]>=2010))
+percentage2010 = (flow_count3/flow_countTotalDays2010)*100
 
 # this give the flow values where that criteria is met
 flow_pick3 = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]
-
-flow_pick4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]
-
-flow_pick5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 3]
-
+flow_pick4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), 3]
+flow_pick5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), 3]
 
 # this give the year values where that criteria is met
 year_pic3 = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 0]
-
-year_pic4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 0]
-
-year_pic5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), 0]
-
+year_pic4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), 0]
+year_pic5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), 0]
 
 # this give the all rows where that criteria is met
-all_pic3 = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), ]
+all_pic3 = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), ]
+all_pic4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), ]
+all_pic5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3]>=FirstWeekFlowPrediction), ]
 
-all_pic4 = flow_data[(flow_data[:,0]<=2000) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), ]
-
-all_pic5 = flow_data[(flow_data[:,0]>=2010) & (flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction), ]
-
-
+# %%
 # Calculate the average flow for these same criteria 
 flow_mean3 = np.mean(flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,3] >= FirstWeekFlowPrediction),3])
 
 print("Flow was greater than my First prediction:", flow_count3, " times.")
-print("In percentage, the flow was greater than my First prediction:",percentage, " %.")
-print('And has an average value of', flow_mean3, "when this is true.")
+print("In percentage, the flow was greater than my First prediction:", percentage, " %.")
+print('And has an average value of:', flow_mean3, "when this is true.")
 print("Before 2000, Flow was greater than my First prediction:", flow_count4, " times.")
+print("In percentage, before 2000, the flow was greater than my First prediction:", percentage2000, " %.")
 print("After 2010, Flow was greater than my First prediction:", flow_count5, " times.")
+print("In percentage, after 2010, the flow was greater than my First prediction:", percentage2010, " %.")
 
-
+# %%
+# Half of month calculus
+flow_FirstHalfMonth = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,2]<=15), 3]
+flow_SecondHalfMonth = flow_data[(flow_data[:,1]==StudyMonth) & (flow_data[:,2]>=15), 3]
+MeanFlowHalf1 = np.mean(flow_FirstHalfMonth)
+MeanFlowHalf2 = np.mean(flow_SecondHalfMonth)
+if MeanFlowHalf1 < MeanFlowHalf2:
+    print("The mean flow of the First Half of September is less than the mean flow of the Second Half")
+if MeanFlowHalf1 > MeanFlowHalf2:
+    print("The mean flow of the First Half of September is greater than the mean flow of the Second Half")
 
 # %%
 # Make a histogram of data
@@ -184,8 +499,6 @@ plt.hist(flow_data[:,3], bins = mybins)
 plt.title('Streamflow')
 plt.xlabel('Flow [cf/s]')
 plt.ylabel('Count')
-
-
 
 
 # Get the quantiles of flow
