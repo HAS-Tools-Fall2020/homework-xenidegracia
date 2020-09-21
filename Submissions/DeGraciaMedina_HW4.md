@@ -46,10 +46,6 @@ For the rest of the year, I used the average of 2019.
 
 - Times in % that the daily flow was greater than my 1st week prediction =  %
 
-- Times that the flow was greater than my 2nd week prediction = 916
-
-- Times in % that the daily flow was greater than my 2nd week prediction =  %
-
 
 **4. How would your answer to the previous question change if you considered only daily flows in or before 2000? Same question for the flows in or after the year 2010? (again report total number of times and percentage)**
 
@@ -58,7 +54,6 @@ For the rest of the year, I used the average of 2019.
 - Times that the flow was greater than my 1st week prediction Before year 2000 = 51294
 
 - Times in % that the daily flow was greater than my 1st week prediction Before year 2000 = 1.140093280359302 %
-
 
 - For the month of September and after 2010:
 
