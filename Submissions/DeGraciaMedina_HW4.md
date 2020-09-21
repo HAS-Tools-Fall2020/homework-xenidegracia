@@ -27,7 +27,7 @@ For the Seasonal forecast, I continue using the average of 2019.
 ### **Assignment questions**
 
 **1. Include discussion of the quantitative analysis that lead to your prediction. This can include any analysis you complete but must include at least two histograms and some quantitative discussion of flow quantiles that helped you make your decision.**
-From the histograms I can see that the majority of the flow values are between 50 and 90 cf/s and also between 190 and 2010 cf/s. As this is a dry season, I will maintain my forecast as lower as I can.
+- From the histograms I can see that the majority of the flow values are between 50 and 90 cf/s and also between 190 and 2010 cf/s. As this is a dry season, I will maintain my forecast as lower as I can.
 There are few values of flow that are over the 500 cf/s.
 From the quantiles I can see that the median value is 158 cf/s and my 25% of my values are 62, which is the closest value from my prediction.
 
