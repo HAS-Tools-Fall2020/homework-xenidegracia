@@ -539,14 +539,3 @@ print('Method one flow quantiles:', flow_quants1)
 flow_quants2 = np.quantile(flow_data, q=[0 , 0.25 , 0.5 , 0.75], axis=0)
 # and then just printing out the values for the flow column
 print('Method two flow quantiles:', flow_quants2[:,3])
-
-# %%
-#Load and show an image with Pillow
-from PIL import Image
-
-#Load the image
-img = Image.open('C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/Submissions/VerdeRiver.jpg')
-
-#show the image
-img.show()
-# %%

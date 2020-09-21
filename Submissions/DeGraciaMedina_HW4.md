@@ -7,6 +7,7 @@
 1. [ Weekly Forecast](#weekly)
 1. [ Seasonal Forecast](#seasonal)
 1. [ Assignment Questions](#questions)
+1. [ Good News!](#news)
 
 ---
 <a name="weekly"></a>
@@ -27,6 +28,9 @@ For the Seasonal forecast, I continue using the average of 2019.
 ### **Assignment questions**
 
 **1. Include discussion of the quantitative analysis that lead to your prediction. This can include any analysis you complete but must include at least two histograms and some quantitative discussion of flow quantiles that helped you make your decision.**
+
+![Histogram](C:/Users/xy_22/Documents\MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/assignment_4)
+
 - From the histograms I can see that the majority of the flow values are between 50 and 90 cf/s and also between 190 and 2010 cf/s. As this is a dry season, I will maintain my forecast as lower as I can.
 There are few values of flow that are over the 500 cf/s.
 From the quantiles I can see that the median value is 158 cf/s and my 25% of my values are 62, which is the closest value from my prediction.
@@ -67,3 +71,8 @@ From the quantiles I can see that the median value is 158 cf/s and my 25% of my 
 **5. How does the daily flow generally change from the first half of September to the second?**
 
 - The mean flow of the First Half of September is greater than the mean flow of the Second Half
+
+---
+<a name="news"></a>
+## **Good News!**
+I finally got my new computer and could work on it perfectly! :D Thanks for all your help * - *
