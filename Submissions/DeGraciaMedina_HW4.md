@@ -1,6 +1,9 @@
 ## Name: Xenia De Gracia Medina.
 ### Homework #4
 ### Date: September 21, 2020.
+___
+### Grade
+3/3 - Nice work! I'm so happy your computer is up and running smoothly!  See instructions in next week assignment for how to include images in your markdown. 
 
 ---
 ### Table of Contents:
