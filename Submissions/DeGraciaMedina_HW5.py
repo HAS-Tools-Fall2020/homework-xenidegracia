@@ -84,55 +84,55 @@ print(MarchFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-AprilFlows = data[data["month"] == 3]
+AprilFlows = data[data["month"] == 4]
 print('April flow values are:')
 print(AprilFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-MayFlows = data[data["month"] == 3]
+MayFlows = data[data["month"] == 5]
 print('May flow values are:')
 print(MayFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-JuneFlows = data[data["month"] == 3]
+JuneFlows = data[data["month"] == 6]
 print('June flow values are:')
 print(JuneFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-JulyFlows = data[data["month"] == 3]
+JulyFlows = data[data["month"] == 7]
 print('July flow values are:')
 print(JulyFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-AugustFlows = data[data["month"] == 3]
+AugustFlows = data[data["month"] == 8]
 print('August flow values are:')
 print(AugustFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-SeptemberFlows = data[data["month"] == 3]
+SeptemberFlows = data[data["month"] == 9]
 print('September flow values are:')
 print(SeptemberFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-OctoberFlows = data[data["month"] == 3]
+OctoberFlows = data[data["month"] == 10]
 print('October flow values are:')
 print(OctoberFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-NovemberFlows = data[data["month"] == 3]
+NovemberFlows = data[data["month"] == 11]
 print('November flow values are:')
 print(NovemberFlows.sort_values(by=('flow'), ascending = False))
 print()
 print()
 
-DecemberFlows = data[data["month"] == 3]
+DecemberFlows = data[data["month"] == 12]
 print('December flow values are:')
 print(DecemberFlows.sort_values(by=('flow'), ascending = False))
 print()
