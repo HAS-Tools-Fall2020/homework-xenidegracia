@@ -2,6 +2,9 @@
 # **Xenia has its Markdown Free Week** (^-^)
 ## *P.D. She started to work on it, until she remembered, so the markdown is incomplete.*
 ---
+## Grade
+3/3 - Yes you do! Congrats on a great forecast :)
+
 ---
 ## Name: Xenia De Gracia Medina.
 ### Homework #4
@@ -44,12 +47,12 @@ In addition to providing a summary of the forecast values you picked and why inc
   - What data types do each of the columns have?
 
 | # | Column | Non-Null Count | Dtype |
-|--- | ----- | -------------- | ----- | 
+|--- | ----- | -------------- | ----- |
  0 | agency_cd| 11592 non-null | object
  1 | site_no |  11592 non-null | int64  
- 2 | datetime|  11592 non-null | object 
+ 2 | datetime|  11592 non-null | object
  3 | flow |     11592 non-null | float64
- 4 | code |     11592 non-null | object 
+ 4 | code |     11592 non-null | object
  5 | year |     11592 non-null | int32  
  6 | month|     11592 non-null | int32  
  7 | day  |     11592 non-null | int32
