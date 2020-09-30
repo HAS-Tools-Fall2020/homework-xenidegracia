@@ -136,3 +136,37 @@ print(np.ceil(x3))
 
 # Hints: np.random, np.round, np.mean, np.std
 # %%
+data = np.ones((7,3))
+data_frame = pd.DataFrame(data, 
+                columns = ['data1', 'data2', 'data3'],
+                index=['a','b','c','d','e','f','g'])
+A) Change the values for all of the vowel rows to 3
+B) multiply the first 4 rows by 7
+C) Make the dataframe into a checkerboard  of 0's and 1's using loc
+# %%
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+# %%
+# A) Change the values for all of the vowel rows to 3
+data = np.ones((7,3))
+data_frame = pd.DataFrame(data, 
+                columns = ['data1', 'data2', 'data3'],
+                index=['a','b','c','d','e','f','g']
+                )
+print(data_frame)
+data_frame.loc[['a','e']]=3
+
+# %%
+
+# B) multiply the first 4 rows by 7
+
+data_frame=data_frame.iloc[:4,]*7
+print(data_frame)
+
+# C) Make the dataframe into a checkerboard  of 0's and 1's using loc
+
+
+
+# %%
