@@ -162,6 +162,26 @@ data_frame.loc[['a','e']]=3
 
 # B) multiply the first 4 rows by 7
 
+
+
+# %%
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data_frame = pd.DataFrame([[1, np.nan, 2],
+                            [2, 3, 5],
+                            [np.nan, 4, 6]])
+
+# %%
+# 1) Use the function fill.na to fill the na values with 999
+data_frame9 = data_frame.fillna(999)
+# %%
+data_frame9[data_frame9==999]=np.nan
+
+# %%
+
+2) Turn the 999 values back to nas. See how many different ways you can do this
 data_frame=data_frame.iloc[:4,]*7
 print(data_frame)
 
