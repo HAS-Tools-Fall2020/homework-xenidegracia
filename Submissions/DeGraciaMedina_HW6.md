@@ -18,7 +18,7 @@
 <a name="weekly"></a>
 >### **Weekly forecast**
 
-*I will take the risk with the weekly forecast, and will trust on my first Python regression ever. So,  my AR model for this week says that the flow will be **87.85 cf/s**. It is higuer than my last forecastings... Maybe because Autumn is coming!?*
+*I will take the risk with the weekly forecast, and will trust on my first Python regression ever. So,  my AR model for this week says that the flow will be **87.85 cf/s**. It is higher than my last forecastings... Maybe because Autumn is coming!?*
 
 
 ---
