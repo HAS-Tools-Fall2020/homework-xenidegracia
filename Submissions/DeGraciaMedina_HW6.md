@@ -51,7 +51,7 @@
 
 <a name="Q2"></a>
 2. Provide an analysis of your final model performance. This should include at least one graph that shows the historical vs predicted streamflow and some discussion of qualitatively how you think your model is good or bad.
-- On **plot #2** we can observe the historical data, and the training and testing lines, however, Plot #3 shows us the simulation done between 1996 and 2004, and it fits very well.
+- On **plot #2** we observed the historical data, and the training and testing lines, however, **Plot #3** shows us the simulation done between 1996 and 2004, and it fits very well.
 
 ### **Plot #3.**
 ![](assets/DeGraciaMedina_HW6-9d9a9890.png)
