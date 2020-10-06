@@ -3,7 +3,9 @@
 ## Homework #6
 ### Name: Xenia De Gracia Medina.
 ### Date: October 05, 2020.
-
+___
+### Grade
+3/3 - Excellent work.  Nice analysis and good looking  plots. I like your color choices :) 
 
 ---
 ### Table of Content:
@@ -33,7 +35,7 @@
 
 
 <a name="Q1"></a>
-1. A summary of the AR model that you ended up building, including: 
+1. A summary of the AR model that you ended up building, including:
 
 - What you are using as your prediction variables.
   - My prediction variables are my flow data range **from 1996 to 2004**, because I saw that it was the most similar range data to continue predicting.
@@ -67,6 +69,5 @@
 
 <a name="Q3"></a>
 3. Finally, provide discussion on what you actually used for your forecast. Did you use your AR model, why or why not? If not how did you generate your forecast this week?
-  - My calculations indicates that the average value for this week is: 
+  - My calculations indicates that the average value for this week is:
   **57.3 cf/s**. However, as I said, I will use my AR model, and for this week the forecast is **87.85 cf/s**. I liked the coefficient of determination and also the plots showed a good linear approach with the historical data.
-
