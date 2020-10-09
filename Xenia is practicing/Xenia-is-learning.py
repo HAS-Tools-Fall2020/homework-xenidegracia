@@ -190,3 +190,36 @@ print(data_frame)
 
 
 # %%
+Given the following series of flow values and days Assume that the flow has uncertainty of +/- 25%
+Come up with a way to visualize this information
+flow = np.random.randn(100)
+day = range(len(y_data))
+# %%
+import os
+import numpy as np
+import pandas as pd
+import earthpy as et
+import matplotlib.pyplot as plt
+
+# %%
+flow = np.random.randn(100)
+flow = [[flow]>=25/100]
+
+# %%
+y_data = np.range[[1:100]]
+day = range(len(y_data)
+
+flow = np.random.randn(100)
+day = np.arange(100)+1
+# %%
+flow_down = flow*(0.75)
+flow_up = flow*(1.25)
+
+# %%
+fig, ax = plt.subplots()
+ax.plot(flow, color='grey', linewidth=2, label='flow')
+ax.plot(flow_down, color='blue', linewidth=2, label='flow-25%')
+ax.plot(flow_up, color='red', linewidth=2, label='flow+25%')
+ax.set(title="Flows", xlabel="Date", ylabel="Weekly Avg Flow [cfs]")
+ax.legend()
+plt.show()

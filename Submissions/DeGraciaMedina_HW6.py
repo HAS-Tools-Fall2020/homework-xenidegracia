@@ -9,14 +9,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import datetime
-#note you may need to do pip install for sklearn
+# note you may need to do pip install for sklearn
 
 # %%
 # ** MODIFY **
 # Set the file name and path to where you have stored the data
 filename = 'streamflow_week6.txt'
 # Xenia: Create a datapath variable to ensure the correct address
-datapath = 'C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/data'
+datapath = 'C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/ \
+        599-HAS_Tools/homework-xenidegracia/data'
 filepath = os.path.join(datapath, filename)
 print(os.getcwd())
 print(filepath)
@@ -24,8 +25,8 @@ print(filepath)
 os.path.exists(filepath)
 
 
-# %%
-#Read the data into a pandas dataframe
+#%%
+# Read the data into a pandas dataframe
 data=pd.read_table(filepath, sep = '\t', skiprows=30,
         names=['agency_cd', 'site_no', 'datetime', 'flow', 'code'],
         parse_dates=['datetime']
