@@ -68,10 +68,10 @@ Coefficient of determination:
 ![](assets/ReadMe-d054d66c.png)
 
 ### **Plot #2.**
-![](assets/ReadMe-28291ce1.png)!
+![](assets/ReadMe-28291ce1.png)
 
 ### **Plot #3.**
-[](assets/ReadMe-36891864.png)
+![](assets/ReadMe-36891864.png)
 
 ### **Plot #4.**
 ![](assets/ReadMe-8525de0f.png)
