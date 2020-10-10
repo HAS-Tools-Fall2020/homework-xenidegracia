@@ -54,7 +54,7 @@ Ok... Lets start!
 >### **Code review following the rubric**
 *Special space for the code review.*
 (Adapted from Kyle Mandli [Intro to Numerical Methods](https://github.com/mandli/intro-numerical-methods))
-![](assets/code_review_rubric-ff0ecab3.png)
+![](assets/ReadMe-ff0ecab3.png)
 
 
 >### **Extra information (just in case)**
@@ -65,18 +65,16 @@ Coefficient of determination:
   - **0.63**
 
 ### **Plot #1.**
-![](assets/DeGraciaMedina_HW6-ed83573a.png)
+![](assets/ReadMe-d054d66c.png)
 
 ### **Plot #2.**
-![](assets/DeGraciaMedina_HW6-ab7bc477.png)
+![](assets/ReadMe-28291ce1.png)!
 
 ### **Plot #3.**
-![](assets/DeGraciaMedina_HW6-9d9a9890.png)
+[](assets/ReadMe-36891864.png)
 
 ### **Plot #4.**
-![](assets/DeGraciaMedina_HW6-e1cb49ed.png)
+![](assets/ReadMe-8525de0f.png)
 
 ### **Plot #5.**
-![](assets/DeGraciaMedina_HW6-847ab37e.png)
-
-
+![](assets/ReadMe-25cf19df.png)
