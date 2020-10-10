@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import datetime
 
-# Note you may need to do pip install for sklearn
+# Note: you may need to do pip install for sklearn
 
 # %%
 # ** MODIFY **
@@ -18,16 +18,14 @@ import datetime
 
 # ACTION REQUIRED: change the name of the file with the current number of \
 # the week
-filename = 'streamflow_week6.txt'
+filename = 'streamflow_week7.txt'
 
-# ACTION REQUIRED: Please change this 'datapath' variable to indicate where
-# did you save your data in your device. (The line below is too long, I tried \
-# to make it short using backslash but it affects the path.)
-datapath = 'C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/data'
+# ACTION REQUIRED: Please make sure the 'filepath' variable work in your \
+# device.
 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
-filepath = os.path.join(datapath, filename)
+filepath = os.path.join(r'..\..\data', filename)
 print('The current work directory is:', os.getcwd())
 print()
 print('The data is storaged at:', filepath)
@@ -46,7 +44,7 @@ data = pd.read_table(filepath, sep='\t', skiprows=30,
                      parse_dates=['datetime']
                      )
 
-# Expand the dates to year month day
+# Expand the dates to year, month, day
 data['year'] = pd.DatetimeIndex(data['datetime']).year
 data['month'] = pd.DatetimeIndex(data['datetime']).month
 data['day'] = pd.DatetimeIndex(data['datetime']).dayofweek
@@ -76,11 +74,67 @@ flow_weekly['flow_tm2'] = flow_weekly['flow'].shift(2)
 # Note1 - dropping the first two weeks since they wont have lagged data \
 # to go with them
 
-# Xenia: Taking data from 1996 to 2004 because you only live once?
-train = flow_weekly[364:780][['flow', 'flow_tm1', 'flow_tm2']]
+# Xenia: Taking train data from 1994 to 2004 because... you only live once?
 
-# Xenia: Taking data from last 3 years to test
-test = flow_weekly[-156:][['flow', 'flow_tm1', 'flow_tm2']]
+# Xenia: Converting the training years and to weeks.
+# FUNCTION to convert the specific training years, to weeks.
+
+
+def StudyYears_to_weeks(number_of_year):
+    """ It converts the quantity of years, to weeks and rounded to two
+    decimals.
+
+    Parameters
+    ----------
+    number_of_year : int
+
+    Returns
+    ------
+    conversion1 : str, int
+    """
+
+    conversion1 = round(((number_of_year - 1989)*52), 2)
+
+    return conversion1
+
+
+start_train_week = StudyYears_to_weeks(1996)
+final_train_week = StudyYears_to_weeks(2004)
+
+
+train = flow_weekly[start_train_week:final_train_week][['flow', 'flow_tm1',
+                                                        'flow_tm2']]
+print("From ", train.index.min(), " to ", train.index.max())
+print()
+
+# Xenia: Taking test data from 3 last years. Convert years to weeks through
+# the function below.
+# FUNCTION to convert the quantity of testing years, to weeks.
+
+
+def convert_years_to_weeks(years_to_test):
+    """ It converts the quantity of testing years, to weeks.
+
+    Parameters
+    ----------
+    years_to_test : str, int
+
+    Returns
+    ------
+    conversion2 : str, int
+    """
+
+    conversion2 = (years_to_test * 52)
+
+    return conversion2
+
+
+years_to_weeks = convert_years_to_weeks(3)
+print('The quantity of weeks to test the model is:', years_to_weeks)
+print()
+
+# Finally obtaining the train test value after using the function.
+test = flow_weekly[-years_to_weeks:][['flow', 'flow_tm1', 'flow_tm2']]
 
 # Step 3: Fit a linear regression model using sklearn
 x = train['flow_tm1'].values.reshape(-1, 1)
@@ -116,9 +170,11 @@ print('The AR model equation is:  y =', model.intercept_.round(2), '+',
 print()
 
 # Xenia: Printing the prediction value. I used the minimun value of the range.
-# Xenia: Do not use this value for prediction.
+# Xenia: Please use this value for the 1st week Regression based Forecast.
 print('First Week prediction using equation from Linear Regression is:',
       q_pred.min().round(2))
+print('Thanks for NOT using this value for the 1st week Regression based Forecast')
+
 print()
 
 # %%
@@ -126,20 +182,22 @@ print()
 
 # Xenia: I used the minimum value of the last 4 WEEKS to forecast the \
 # coming week.
-# Xenia: Please use this value for AR prediction.
+# Xenia: Please USE this value for AR prediction.
 last_4weeks_flow = flow_weekly['flow'][-4].min()
 prediction_1stWeek = model.intercept_ + model.coef_ * last_4weeks_flow
 print('First week prediction using AR but based just on my 4 last weeks\
       average value is:', prediction_1stWeek.round(2))
+print('Please Use this value for the 1st week Regression based Forecast')
 print()
 
 # Xenia: I made the same to predict the second week value, but using the \
 # minimun flow from the LAST 3 weeks only.
-# Xenia: Please use this value for AR prediction.
+# Xenia: Please USE this value for AR prediction.
 last_3weeks_flow = flow_weekly['flow'][-3].min()
 prediction_2ndWeek = model.intercept_ + model.coef_ * last_3weeks_flow
-print('Second week prediction using AR but based just on my 3 last weeks\
+print('Second week prediction using AR but based just on my 3 last weeks \
       average value is:', prediction_2ndWeek.round(2))
+print('Please Use this value for the 2nd week Regression based Forecast')
 print()
 
 # %%
@@ -149,12 +207,14 @@ print()
 flow_mean1 = ((data['flow'].tail(21)).mean()).round(2)
 print('The AVERAGE forecast for the FIRST week that comes is:', flow_mean1,
       'cf/s.')
+print('Use this value for the 1st week CSV submission')
 print()
 
 # AVERAGE SECOND WEEK FORECAST (Please choose this for the 2nd week CSV entry).
 flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
       'cf/s.')
+print('Use this value for the 2nd week CSV submission')
 print()
 
 # %%
