@@ -34,8 +34,8 @@ Ok... Lets start!*
 >### **Weekly forecast for submission**
 *Here is the space for the 1st and 2nd week forecast submission values. Those that I recommended for my CSV forecasting entries, printed in the lines 208 and 215 of the code*
 
-- Week 1:
-- Week 2:
+- Week 1: 58.22
+- Week 2: 58.41
 
 
 
@@ -45,8 +45,8 @@ Ok... Lets start!*
 >### **Regression based Forecast**
 *Please write below the regression based values for 1st and 2nd week forecast.* (Values obtained in the *lines 190 and 200 of the code.)*
 
-- Week 1:
-- Week 2:
+- Week 1: 78.03
+- Week 2: 80.49
 
 
 
@@ -57,9 +57,24 @@ Ok... Lets start!*
 (Adapted from Kyle Mandli [Intro to Numerical Methods](https://github.com/mandli/intro-numerical-methods))
 ![](assets/ReadMe-ff0ecab3.png)
 
-- Readability:
-- Style:
-- Code awesome:
+- Readability:   3
+- Style:         3
+- Code awesome:  3
+
+- # Written Review #
+- The code is clean and easy to follow, with excellent doc string, comments, and setup instructions in the ReadMe markdown. One improvement in style would be to create a new cell for each set of operations. This makes it easier to identify and troubleshoot error messages, and to follow along with the comments one at a time.
+
+- The variable names were effective and easy to understand.
+- Pep8 standards were entirely followed except for line 176 flagged for being just a few characters too long.
+- Lines 207 and 214 generated the error 'float' object has no attribute 'round'. I commented out the .round and it generated the prediction. Then I found a way to use round in that statement and changed it on line 207 so you can see. Instead of .round it wanted
+-round(the code you have),2)
+- The AR model forecast seems much more reasonable than the values a lot of us have been generating, so good job!
+- This excellent code might be more streamlined with fewer plots. The starter code we built this on had many plots as examples of what we could do but I think they are each useful for different scenarios and focuses.
+- I enjoyed reviewing this code and it gave me ideas of how I can improve on mine and challenge myself more, both with manipulating data and increasing my markdown formatting.
+
+- Abigail Kahler
+
+
 
 
 <a name="extra"></a>

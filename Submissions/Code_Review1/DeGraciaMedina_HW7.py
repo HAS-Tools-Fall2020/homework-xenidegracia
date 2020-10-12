@@ -25,7 +25,7 @@ filename = 'streamflow_week7.txt'
 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
-filepath = os.path.join(r'..\..\data', filename)
+filepath = os.path.join(r'C:\Users\Dell Latitude E6430\Documents\HAS_Tools_git\homework-xenidegracia\data', filename)
 print('The current work directory is:', os.getcwd())
 print()
 print('The data is storaged at:', filepath)
@@ -204,14 +204,15 @@ print()
 # My initial forecast method is using just average of the last weeks:
 
 # AVERAGE FIRST WEEK FORECAST (Please choose this for the 1st week CSV entry).
-flow_mean1 = ((data['flow'].tail(21)).mean()).round(2)
+flow_mean1 = round(((data['flow'].tail(21)).mean()),2)  #.round(2)
 print('The AVERAGE forecast for the FIRST week that comes is:', flow_mean1,
       'cf/s.')
 print('Use this value for the 1st week CSV submission')
 print()
+# %%
 
 # AVERAGE SECOND WEEK FORECAST (Please choose this for the 2nd week CSV entry).
-flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)
+flow_mean2 = ((data['flow'].tail(14)).mean())  # .round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
       'cf/s.')
 print('Use this value for the 2nd week CSV submission')
