@@ -25,7 +25,7 @@ filename = 'streamflow_week7.txt'
 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
-filepath = os.path.join(r'C:\Users\Dell Latitude E6430\Documents\HAS_Tools_git\homework-xenidegracia\data', filename)
+filepath = os.path.join('..\..\data', filename)
 print('The current work directory is:', os.getcwd())
 print()
 print('The data is storaged at:', filepath)

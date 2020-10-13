@@ -223,3 +223,15 @@ ax.plot(flow_up, color='red', linewidth=2, label='flow+25%')
 ax.set(title="Flows", xlabel="Date", ylabel="Weekly Avg Flow [cfs]")
 ax.legend()
 plt.show()
+
+# %%
+
+
+# %%
+import os
+import numpy as np
+import pandas as pd
+import earthpy as et
+import matplotlib.pyplot as plt
+
+# %%
