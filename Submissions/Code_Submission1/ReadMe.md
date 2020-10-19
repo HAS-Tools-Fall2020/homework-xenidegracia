@@ -102,7 +102,7 @@ Coefficient of determination:
 ### **Plot #1.**
 ![]("1. Entire Flow Data Since 1989.png")
 "1. Entire Flow Data Since 1989.png"
-
+![](assets/ReadMe-71b0521f.png)
 
 ### **Plot #2.**
 ![](assets/ReadMe-28291ce1.png)
