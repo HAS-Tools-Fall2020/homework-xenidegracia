@@ -1,4 +1,4 @@
-## Homework #8: *Final graded script from section 1*
+## Homework #8: *Final graded script from section 1* :tada: :fireworks:
 ### Author of the code:  *Xenia De Gracia Medina*.
 ### Date: *October 19, 2020*.
 
@@ -11,7 +11,7 @@
 - [ Code review following the rubric](#review)
 - [ Extra information (just in case)](#extra)
 ---
-:tada: :fireworks:
+
 ---
 <a name="summary"></a>
 
