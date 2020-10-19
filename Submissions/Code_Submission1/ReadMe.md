@@ -100,8 +100,8 @@ Coefficient of determination:
   - **0.76**
 
 ### **Plot #1.**
-![]()
-
+![]("1. Entire Flow Data Since 1989.png")
+"1. Entire Flow Data Since 1989.png"
 
 
 ### **Plot #2.**
