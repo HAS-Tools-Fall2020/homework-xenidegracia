@@ -366,7 +366,9 @@ visualizer.score(X_test, y_test)  # Evaluate the model on the test data
 visualizer.show()                 # Finalize and render the figure
 
 # Xenia: Saving my plots
+plt.show()
 fig.set_size_inches(7, 5)
+plt.savefig("6._Residuals_Plot.png")
 fig.savefig("6._Residuals_Plot.png")
 
 # %%
