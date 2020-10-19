@@ -279,8 +279,7 @@ ax.legend()
 
 # Saving the figure to a file
 fig.set_size_inches(7, 5)
-fig.savefig("1. Entire Flow Data Since 1989.png")
-plt.savefig("10. Entire Flow Data Since 1989.png")
+fig.savefig("1._Entire_Flow_Data_Since_1989.png")
 
 # 2. Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
@@ -295,7 +294,7 @@ ax.set(title="2. Testing, Training & Real Flow", xlabel="Date",
                            datetime.date(2021, 1, 15)])
 ax.legend()
 fig.set_size_inches(7, 5)
-fig.savefig("2. Testing, Training & Real Flow.png")
+fig.savefig("2._Testing,_Training_&_Real_Flow.png")
 
 # 3. Line  plot comparison of predicted and observed flows
 fig, ax = plt.subplots()
@@ -313,7 +312,7 @@ ax.legend()
 
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
-fig.savefig("3. Flow Simulation Done.png")
+fig.savefig("3._Flow_Simulation_Done.png")
 # %%
 # 4. Scatter plot of t vs t-1 flow with log log axes
 fig, ax = plt.subplots()
@@ -327,7 +326,7 @@ ax.legend()
 
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
-fig.savefig("4. Autoregression Model.png")
+fig.savefig("4._Autoregression_Model.png")
 
 # 5. Scatter plot of t vs t-1 flow with normal axes
 fig, ax = plt.subplots()
@@ -341,7 +340,7 @@ ax.legend()
 
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
-fig.savefig("5. Autoregression Model.png")
+fig.savefig("5._Autoregression_Model.png")
 
 # Xenia: Showing all my plots as an output
 plt.show()
@@ -368,6 +367,6 @@ visualizer.show()                 # Finalize and render the figure
 
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
-fig.savefig("6. Residuals Plot.png")
+fig.savefig("6._Residuals_Plot.png")
 
 # %%
