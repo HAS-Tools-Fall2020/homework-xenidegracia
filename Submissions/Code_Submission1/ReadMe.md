@@ -69,7 +69,7 @@ Week 16 | 2020-12-06  |  304.97
 ---
 <a name="instructions"></a>
 >### **Instructions from the author :)**
-*Hi there! Here are the instructions to run my code in your own computer:
+*Hi there! Here are the instructions to run my code in your own computer:*
 1. Clone my repo into your computer. I posted the link in here for your easy access: [homework-xenidegracia](https://github.com/HAS-Tools-Fall2020/homework-xenidegracia)
 2. Please download the data from: [USGS Station 09506000 VERDE RIVER](https://waterdata.usgs.gov/nwis/dv?referred_module=sw&site_no=09506000). Since January 1st, 1989, until today.
 3. Save it as **".txt"** format, with the name of the current course week: **"streamflow_week8.txt"**, in the **"data"** folder inside the repository: [homework-xenidegracia/data](https://github.com/HAS-Tools-Fall2020/homework-xenidegracia/tree/master/data).
