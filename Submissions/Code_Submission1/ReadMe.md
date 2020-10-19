@@ -29,14 +29,15 @@
 
   ![](assets/ReadMe-25e167b4.png)
 
-  - When I finally got my "Flow Simulation" plot, I realized that my model is not working well at the beginning of the range that I gave to it, nevertheless it is giving me low values for this dry year, and also has a good coefficient of determination.  **(See Plot #3)**
+  - When I finally got my "Flow Simulation" plot, I realized that my model is not working well at the beginning of the date range that I gave to it, nevertheless it is giving me low flow values for this dry year, and also has a good coefficient of determination.  **(See Plot #3)**
 
   ![](assets/ReadMe-54a416be.png)
 
 **2- An explanation of how you generated your forecasts and why (i.e. did you use your AR model or not?)**
 
-  - In my code I have two methods to obtain my values. The AR based model, and the simple average of the values of 2019. However, I decided to go with my AR based model values due to the average forecast is not working as I wish it could.
-  - I made a one time shift of the data to do my linear regression. I created a function that gives me 16 values of the seasonal forecast and also the values for the weekly forecast. After that, - I  made the plots that tell me how is the situation with the model and my data. **(See Plots # 4 and 5)**
+  - In my code I have two methods to obtain my forecast values. The AR based model, and the simple average of the values of 2019. However, I decided to go with my AR based model values due to the average forecast is not working as I wish it could.
+  - I made a one time shift of the data to do my linear regression. I created a function that gives me 16 values of the seasonal forecast and also the values for the weekly forecast and put that on tables.
+  - I  made the plots that tell me how is the situation with the model and my data. **(See Plots # 4 and 5)**
 
   ![](assets/ReadMe-6bc4c7dd.png)
 
@@ -44,14 +45,16 @@
 
 **3- A brief summary of what you got out of the peer evaluation. How did you make your script better?**
 
-  - From my peer evaluation I obtain feedback about improving the path of the data, to make it available for everyone that wants to run my code, also on the writing of my code through the use of more cells to facilitate the execution of it. My evaluator gave me some advices about using more different plots, so I decided to work on the "Residuals Plot" that tells me how my data is far from or close to my model. **(See Plot #6)**
+  - From my peer evaluation I obtained feedback about improving the path of the data, to make it available for everyone that wants to run my code, also on the writing of my code through the use of more cells to facilitate the execution of it.
+  - My evaluator gave me some advices about using more different plots, so I decided to work on the "Residuals Plot" that tells me how my data is far from or close to my model. **(See Plot #6)**
 
   ![](assets/ReadMe-c8eeeb94.png)
 
 **4- Describe the part of your script that you are most proud of and why.**
 
-  - I was so proud when I could finally get how to use the datetime as an object to locate the data that I wanted to process. Also when I got the 16 values of my average and AR forecasting.
-  - The fact that now the flake8 corrects me less than at the beginning of the course.
+  - I was so proud when I could finally get how to use the datetime as an object to locate the data that I wanted to process.
+  - Also when I got the 16 values of my average and AR forecasting by using functions and a for loop.
+  - The fact that now I make my codes with better writing skills because I learned the PEP8 style and now the flake8 corrects me less than at the beginning of the course.
 
 ---
 <a name="weekly"></a>
