@@ -1,5 +1,4 @@
-# Week 7: Coding cleaning and interpretation
-# AR model and plot it
+# Week 8: Final graded script from section 1
 
 # %%
 # Import the modules we will use
@@ -7,8 +6,11 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
 import datetime
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from yellowbrick.datasets import load_concrete
+from yellowbrick.regressor import ResidualsPlot
 
 # Note: you may need to do pip install for sklearn
 
@@ -18,17 +20,16 @@ import datetime
 
 # ACTION REQUIRED: change the name of the file with the current number of \
 # the week
-filename = 'streamflow_week7.txt'
-
-# ACTION REQUIRED: Please make sure the 'filepath' variable work in your \
-# device.
+filename = 'streamflow_week8.txt'
 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
 filepath = os.path.join('../../data', filename)
-print('The current work directory is:', os.getcwd())
+print('The current work directory is:')
+print(os.getcwd())
 print()
-print('The data is storaged at:', filepath)
+print('The data is storaged at:')
+print(filepath)
 print()
 
 # This shows if the path exists or not, to check if there is any problem
@@ -41,13 +42,13 @@ os.path.exists(filepath)
 data = pd.read_table(filepath, sep='\t', skiprows=30,
                      names=['agency_cd', 'site_no', 'datetime', 'flow',
                             'code'],
-                     parse_dates=['datetime']
+                     parse_dates=['datetime'],
                      )
 
 # Expand the dates to year, month, day
 data['year'] = pd.DatetimeIndex(data['datetime']).year
 data['month'] = pd.DatetimeIndex(data['datetime']).month
-data['day'] = pd.DatetimeIndex(data['datetime']).dayofweek
+data['day'] = pd.DatetimeIndex(data['datetime']).day
 data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 
 # Xenia: Note that Now Mondays are represented by "dayofweek = 0" and Sundays \
@@ -68,15 +69,11 @@ flow_weekly = data.resample("W", on='datetime').min().round(2)
 flow_weekly['flow_tm1'] = flow_weekly['flow'].shift(1)
 flow_weekly['flow_tm2'] = flow_weekly['flow'].shift(2)
 
+# %%
 # Step 2 - pick what portion of the time series you want to use as training \
 # data
-# Here I'm grabbing the first 800 weeks
-# Note1 - dropping the first two weeks since they wont have lagged data \
-# to go with them
 
-# Xenia: Taking train data from 1994 to 2004 because... you only live once?
-
-# Xenia: Converting the training years and to weeks.
+# Xenia: Converting the training years to weeks.
 # FUNCTION to convert the specific training years, to weeks.
 
 
@@ -87,10 +84,12 @@ def StudyYears_to_weeks(number_of_year):
     Parameters
     ----------
     number_of_year : int
+                    Start or final year for training
 
     Returns
     ------
     conversion1 : str, int
+                  It converst the year to weeks
     """
 
     conversion1 = round(((number_of_year - 1989)*52), 2)
@@ -101,13 +100,21 @@ def StudyYears_to_weeks(number_of_year):
 start_train_week = StudyYears_to_weeks(1996)
 final_train_week = StudyYears_to_weeks(2004)
 
+# Idecided to not use this method of taking data. So I used the netx location \
+# by datetime.
 
-train = flow_weekly[start_train_week:final_train_week][['flow', 'flow_tm1',
-                                                        'flow_tm2']]
-print("From ", train.index.min(), " to ", train.index.max())
+# %%
+# Xenia: Taking train data from August to December 2019 because it was a dry \
+# year too.
+
+train = flow_weekly.loc["2019-08-22":"2019-12-12"][[
+      'flow', 'flow_tm1', 'flow_tm2']]
+# This shows the start and end of the training data.
+print("The training data was taken from ", train.index.min(), " to ",
+      train.index.max())
 print()
 
-# Xenia: Taking test data from 3 last years. Convert years to weeks through
+# Xenia: Taking test data from last 3 years. Convert years to weeks through
 # the function below.
 # FUNCTION to convert the quantity of testing years, to weeks.
 
@@ -136,6 +143,7 @@ print()
 # Finally obtaining the train test value after using the function.
 test = flow_weekly[-years_to_weeks:][['flow', 'flow_tm1', 'flow_tm2']]
 
+# %%
 # Step 3: Fit a linear regression model using sklearn
 x = train['flow_tm1'].values.reshape(-1, 1)
 y = train['flow'].values
@@ -155,6 +163,7 @@ print()
 print('slope:', np.round(model.coef_, 2))
 print()
 
+# %%
 # Step 4 Make a prediction with your model
 # Predict the model response for a given flow value
 q_pred_train = model.predict(train['flow_tm1'].values.reshape(-1, 1))
@@ -162,62 +171,76 @@ q_pred_test = model.predict(test['flow_tm1'].values.reshape(-1, 1))
 
 # Alternatively you can calcualte this yourself like this:
 # Xenia: y = b + m(x)
-q_pred = model.intercept_ + (model.coef_ * train['flow_tm1'])
+q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])).round(2)
 
 # Xenia: Printing the final equation of the model
 print('The AR model equation is:  y =', model.intercept_.round(2), '+',
       model.coef_.round(2), 'X')
 print()
 
-# Xenia: Printing the prediction value. I used the minimun value of the range.
-# Xenia: Please use this value for the 1st week Regression based Forecast.
-print('First Week prediction using equation from Linear Regression is:',
-      q_pred.min().round(2))
-print('Thanks for NOT using this value for the 1st week Regression based \
-      Forecast')
-
+# Xenia: Printing the seasonal prediction.
+# Xenia: Please use this value for the Regression based Forecast.
+print('Seasonal predictions using Linear Regression are:',
+      q_pred)
 print()
 
 # %%
-# You could also predict the q for just a single value like this.
+# AR model for WEEKLY forecast
 
-# Xenia: I used the minimum value of the last 4 WEEKS to forecast the \
+# Xenia: I used the minimum value of the last 3 WEEKS to forecast the \
 # coming week.
 # Xenia: Please USE this value for AR prediction.
-last_4weeks_flow = flow_weekly['flow'][-4].min()
-prediction_1stWeek = model.intercept_ + model.coef_ * last_4weeks_flow
-print('First week prediction using AR but based just on my 4 last weeks\
-      average value is:', prediction_1stWeek.round(2))
-print('Please Use this value for the 1st week Regression based Forecast')
-print()
 
-# Xenia: I made the same to predict the second week value, but using the \
-# minimun flow from the LAST 3 weeks only.
-# Xenia: Please USE this value for AR prediction.
-last_3weeks_flow = flow_weekly['flow'][-3].min()
-prediction_2ndWeek = model.intercept_ + model.coef_ * last_3weeks_flow
-print('Second week prediction using AR but based just on my 3 last weeks \
-      average value is:', prediction_2ndWeek.round(2))
-print('Please Use this value for the 2nd week Regression based Forecast')
+
+def weeklyforecast(i):
+    """
+      AR model for weekly predictions.
+
+      INPUT
+      i : float
+          Value of the quantity of weeks we want to take into account for the
+          AR model.
+
+      OUTPUT
+      past_weeks : float
+      weekly_AR_pred : float
+      """
+
+    past_weeks = flow_weekly['flow'][-i]
+    weekly_AR_pred = (model.intercept_ + model.coef_ * past_weeks).round(2)
+    return weekly_AR_pred
+
+
+for i in range(2, 4):
+    print('The AR values for the next', i-1, 'week is:', weeklyforecast(i))
+
+
 print()
 
 # %%
 # My initial forecast method is using just average of the last weeks:
 
-# AVERAGE FIRST WEEK FORECAST (Please choose this for the 1st week CSV entry).
+# AVERAGE FIRST WEEK FORECAST.
 flow_mean1 = round(((data['flow'].tail(21)).mean()), 2)  # .round(2)
 print('The AVERAGE forecast for the FIRST week that comes is:', flow_mean1,
       'cf/s.')
-print('Use this value for the 1st week CSV submission')
 print()
 # %%
 
-# AVERAGE SECOND WEEK FORECAST (Please choose this for the 2nd week CSV entry).
-flow_mean2 = ((data['flow'].tail(14)).mean())  # .round(2)
+# AVERAGE SECOND WEEK FORECAST.
+flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)  # .round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
       'cf/s.')
-print('Use this value for the 2nd week CSV submission')
 print()
+
+# %%
+# SEASONAL FORECAST based just on average of 2019
+# Locating my data from August to December 2019
+data2019 = flow_weekly.loc["2019-08-22":"2019-12-12"]
+
+# Printing my 16 values for seasonal forecast
+for i in range(16):
+    print('Week #', i+1, 'forecast:', data2019['flow'][i])
 
 # %%
 # Another example but this time using two time lags as inputs to the model
@@ -241,7 +264,7 @@ q_pred2 = model2.intercept_   \
          + model2.coef_[1] * train['flow_tm2']
 
 # %%
-# Here are some examples of things you might want to plot to get you started:
+# PLOTS
 
 # 1. Timeseries of observed flow values
 # Note that date is the index for the dataframe so it will
@@ -255,21 +278,21 @@ ax.set(title="1. Entire Flow Data Since 1989", xlabel="Date",
        yscale='log')
 ax.legend()
 
-# An example of saving your figure to a file
+# Saving the figure to a file
 fig.set_size_inches(7, 5)
 fig.savefig("1. Entire Flow Data Since 1989.png")
 
 # 2. Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
 ax.plot(flow_weekly['flow'], label='full', color='black', linewidth=0.5)
-ax.plot(train['flow'], 'r:', label='training', color='aqua', linestyle='-',
-        alpha=0.5, dash_capstyle='round', linewidth=4)
 ax.plot(test['flow'], 'r:', label='testing', color='gold', linestyle='-',
         alpha=0.5, dash_capstyle='round', linewidth=4)
+ax.plot(train['flow'], 'r:', label='training', color='aqua', linestyle='-',
+        dash_capstyle='round', linewidth=4)
 ax.set(title="2. Testing, Training & Real Flow", xlabel="Date",
        ylabel="Weekly Avg Flow [cfs]",
-       yscale='log', xlim=[datetime.date(1996, 8, 24),
-                           datetime.date(2021, 1, 1)])
+       yscale='log', xlim=[datetime.date(2014, 8, 24),
+                           datetime.date(2021, 1, 15)])
 ax.legend()
 fig.set_size_inches(7, 5)
 fig.savefig("2. Testing, Training & Real Flow.png")
@@ -282,18 +305,22 @@ ax.plot(train.index, q_pred_train, color='aqua', linestyle='-',
 ax.set(title="3. Flow Simulation Done", xlabel="Date",
        ylabel="Weekly Avg Flow [cfs]",
        yscale='log')
+plt.xticks(rotation=30)
+
+# This above was to rotate the datetime axis to avoid the \
+# overlapping.
 ax.legend()
 
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
 fig.savefig("3. Flow Simulation Done.png")
-
+# %%
 # 4. Scatter plot of t vs t-1 flow with log log axes
 fig, ax = plt.subplots()
-ax.scatter(train['flow_tm1'], train['flow'], marker='*',
+ax.scatter(train['flow_tm1'], train['flow'], marker='.',
            color='purple', label='obs')
 ax.set(title="4. Autoregression Model", xlabel='flow t-1', ylabel='flow t',
-       yscale='log', xscale='log')
+       yscale='log', xscale='log', xlim=[0, 200], ylim=[0, 200])
 ax.plot(np.sort(train['flow_tm1']), np.sort(q_pred_train), label='AR model',
         color='aqua', linewidth=3)
 ax.legend()
@@ -304,10 +331,10 @@ fig.savefig("4. Autoregression Model.png")
 
 # 5. Scatter plot of t vs t-1 flow with normal axes
 fig, ax = plt.subplots()
-ax.scatter(train['flow_tm1'], train['flow'], marker='*',
+ax.scatter(train['flow_tm1'], train['flow'], marker='.',
            color='purple', label='observations')
 ax.set(title="5. Autoregression Model", xlabel='flow t-1', ylabel='flow t',
-       xlim=[0, 500], ylim=[0, 500])
+       xlim=[0, 175], ylim=[0, 175])
 ax.plot(np.sort(train['flow_tm1']), np.sort(q_pred_train), label='AR model',
         color='aqua', linewidth=3)
 ax.legend()
@@ -318,5 +345,30 @@ fig.savefig("5. Autoregression Model.png")
 
 # Xenia: Showing all my plots as an output
 plt.show()
+
+# %%
+# Residuals Plot (Trying new things)
+
+# The residuals plot shows how the model is injecting error, the bold \
+# horizontal line at residuals = 0 is no error, and any point above or below \
+# that line, indicates the magnitude of error.
+# (https://www.scikit-yb.org/en/latest/quickstart.html#installation)
+
+# Load a regression dataset
+X, y = load_concrete()
+
+
+# %%
+# Create training and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+
+visualizer = ResidualsPlot(LinearRegression())
+visualizer.fit(X_train, y_train)  # Fit the training data to the visualizer
+visualizer.score(X_test, y_test)  # Evaluate the model on the test data
+visualizer.show()                 # Finalize and render the figure
+
+# Xenia: Saving my plots
+fig.set_size_inches(7, 5)
+fig.savefig("6. Residuals Plot.png")
 
 # %%

@@ -25,7 +25,7 @@ filename = 'streamflow_week7.txt'
 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
-filepath = os.path.join('../../data', filename)
+filepath = os.path.join('../data', filename)
 print('The current work directory is:', os.getcwd())
 print()
 print('The data is storaged at:', filepath)
@@ -174,7 +174,7 @@ print()
 print('First Week prediction using equation from Linear Regression is:',
       q_pred.min().round(2))
 print('Thanks for NOT using this value for the 1st week Regression based \
-      Forecast')
+       Forecast')
 
 print()
 

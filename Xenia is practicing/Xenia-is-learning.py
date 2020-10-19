@@ -235,3 +235,27 @@ import earthpy as et
 import matplotlib.pyplot as plt
 
 # %%
+data = np.random.rand(4, 5)
+
+# Write a function and use it to calculate the mean of every colum
+# If you have time try doing it with and without a for loop
+
+# %%
+def mean_column(data):
+    """
+    Mean of column
+    """
+    data = np.random.rand(4, 5)
+    ans=[]
+    for i in range(4):
+    ans.append(data[:,i].mean())
+    return ans
+mean_column(data)
+
+print (data)
+# %%
+def get_mean(data):
+    mean = data.mean(axis=0)
+    return mean
+get_mean(data)
+# %%
