@@ -218,7 +218,7 @@ for i in range(2, 4):
 print()
 
 # %%
-# My initial forecast method is using just average of the last weeks:
+# My initial forecast method was using just average of the last weeks:
 
 # AVERAGE FIRST WEEK FORECAST.
 flow_mean1 = round(((data['flow'].tail(21)).mean()), 2)  # .round(2)
@@ -226,7 +226,6 @@ print('The AVERAGE forecast for the FIRST week that comes is:', flow_mean1,
       'cf/s.')
 print()
 # %%
-
 # AVERAGE SECOND WEEK FORECAST.
 flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)  # .round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
@@ -281,6 +280,7 @@ ax.legend()
 # Saving the figure to a file
 fig.set_size_inches(7, 5)
 fig.savefig("1. Entire Flow Data Since 1989.png")
+plt.savefig("10. Entire Flow Data Since 1989.png")
 
 # 2. Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
@@ -356,7 +356,6 @@ plt.show()
 
 # Load a regression dataset
 X, y = load_concrete()
-
 
 # %%
 # Create training and test sets
