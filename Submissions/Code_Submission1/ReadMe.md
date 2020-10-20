@@ -10,6 +10,15 @@
 - [ Regression based Forecast](#regression)
 - [ Code review following the rubric](#review)
 
+#### Grade 
+ - 6/6  Great  job!
+ - Readability: 3
+ - Style: 3 
+ - Code: 3
+
+ - Really great job here! T
+ - There were a few parts that were confusing but overall I really like your  setup. 
+ 
 ---
 <a name="summary"></a>
 >### **Summary**

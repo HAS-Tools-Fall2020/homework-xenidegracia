@@ -22,6 +22,7 @@ from yellowbrick.regressor import ResidualsPlot
 # the week
 filename = 'streamflow_week8.txt'
 
+# LC - nice print statements 
 # The variable "filepath" will automatically join the address of your data \
 # and the document.
 filepath = os.path.join('../../data', filename)
@@ -227,6 +228,7 @@ print('The AVERAGE forecast for the FIRST week that comes is:', flow_mean1,
 print()
 # %%
 # AVERAGE SECOND WEEK FORECAST.
+# LC - i'm a little confused about the tail 14 here? 
 flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)  # .round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
       'cf/s.')
@@ -238,11 +240,13 @@ print()
 data2019 = flow_weekly.loc["2019-08-22":"2019-12-12"]
 
 # Printing my 16 values for seasonal forecast
+# LC - you could also save this to a variable 
 for i in range(16):
     print('Week #', i+1, 'forecast:', data2019['flow'][i])
 
 # %%
 # Another example but this time using two time lags as inputs to the model
+# LC - A little confused about how this part fits in with the rest. 
 model2 = LinearRegression()
 x2 = train[['flow_tm1', 'flow_tm2']]
 model2.fit(x2, y)
