@@ -1,6 +1,5 @@
 # Week 9: Reading data and APIs
 # Default public Token: bf3f2390344b42a7a102b6fe0574b689
-# Private API key: Ky5jnzSwwet7UI7UPQtpJL15e1zl2LD1erpnniXEBj
 
 # %%
 # Import the modules we will use
