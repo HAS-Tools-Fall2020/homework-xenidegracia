@@ -258,4 +258,31 @@ def get_mean(data):
     mean = data.mean(axis=0)
     return mean
 get_mean(data)
+
+# %%
+# class
+# %%
+# 1) Load in your streamflow timeseries from your data folder like this:
+filename = 'streamflow_week1.txt'
+filepath = os.path.join('../data', filename)
+data = pd.read_table(filepath, sep='\t', skiprows=30,
+                     names=['agency_cd', 'site_no',
+                            'datetime', 'flow', 'code'],
+                     parse_dates=['datetime'], index_col='datetime'
+                     )
+# Return the streamflow January 3-5 as many ways as you can 1989
+site = 09506000
+start = 1989-01-01
+end = 2020-10-21
+url = 'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=' + \
+       site + '&referred_module=sw&period=&begin_date=' + start + '&end_date=' \
+       + end
+
+# %%
+
+JanData = data.loc["1989-01-03":"1989-01-05"][['flow']]
+print(JanData.head)
+
+# %%
+data.flow.head()[2:5]
 # %%
