@@ -130,7 +130,7 @@ precip = responseDict['STATION'][0]['OBSERVATIONS']['precip_accum_set_1']
 # %%
 # Now we can combine this into a pandas dataframe
 data_Meso = pd.DataFrame({'Temperature': airT, 'Precipitation': precip},
-                         index=pd.to_datetime(dateTime), format='%Y-%m-%d')
+                         index=pd.to_datetime(dateTime))
 
 data_Meso = data_Meso.groupby(level=0).mean()
 
@@ -147,6 +147,8 @@ data_no_tz.tz_convert('CET')
 data_no_tz.index.tz = None
 
 data_weekly.index.tz_convert(None)
+
+datetime = pd.to_datetime(dateTime, format='%Y-%m-%d')
 
 # %%
 # Building an autoregressive model
@@ -553,7 +555,7 @@ data2["yday"] = data2["yday"].astype(str)
 data2["year"] = data2["year"].str.slice(0, -2)
 data2["yday"] = data2["yday"].str.slice(0, -2)
 data2["year_day"] = data2 ["year"].str.cat(data2["yday"], sep = ' ')
-datetime = pd.to_datetime(data2.year_day, format='%Y %j''%Y-%m-%d')
+datetime = pd.to_datetime(data2.year_day, format='%Y-%m-%d')
 
 q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])
           + (model.coef_ * train2['precip_tm1'])
