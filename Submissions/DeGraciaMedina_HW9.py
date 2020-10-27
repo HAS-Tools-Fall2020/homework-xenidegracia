@@ -1,5 +1,6 @@
 # Week 9: Reading data and APIs
 # Default public Token: bf3f2390344b42a7a102b6fe0574b689
+# Private API key: Ky5jnzSwwet7UI7UPQtpJL15e1zl2LD1erpnniXEBj
 
 # %%
 # Import the modules we will use
@@ -48,6 +49,7 @@ data['day'] = pd.DatetimeIndex(data['datetime']).day
 data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 
 
+
 # Xenia: Note that Now Mondays are represented by "dayofweek = 0" and Sundays \
 # are represented by "dayofweek = 6"
 
@@ -56,6 +58,7 @@ data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 # to consider just the minimun values of each week.
 flow_weekly = data.resample("W", on='datetime').min().round(2)
 
+flow_weekly.index = flow_weekly.index.tz_localize(tz="UTC")
 
 # Erasing the column called 'datetime' to join the MesoData after
 del flow_weekly['datetime']
@@ -559,4 +562,8 @@ datetime = pd.to_datetime(data2.year_day, format='%Y-%m-%d')
 q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])
           + (model.coef_ * train2['precip_tm1'])
           + (model.coef_ * train2['temp_tm1'])).round(2)
+
+# If data is the name of a panda data frame with the flow, then:
+data.index = data.index.tz_localize(tz="UTC")
+
 
