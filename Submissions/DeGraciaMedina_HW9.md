@@ -3,6 +3,9 @@
 ### Date: *October 26, 2020*.
 
 ---
+### Grade
+3/3 - Nice job
+___
 ### Table of Content:
 - [ Questionnaire](#quest)
 - [ Weekly forecast for submission](#weekly)
