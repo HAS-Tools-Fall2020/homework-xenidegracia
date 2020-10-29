@@ -28,12 +28,13 @@ from yellowbrick.regressor import ResidualsPlot
 # Read the data, from the website, into a pandas dataframe.
 Site = '09506000'
 Start = '1989-01-01'
-End = '2020-10-24'
+End = '2020-10-27'
 url1 = 'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&' \
        'site_no='+Site+'&referred_module=sw&period=&' \
        'begin_date='+Start+'&end_date='+End
 
-print(url1)
+print('The flow data is obtained  from: ', url1)
+print()
 
 data = pd.read_table(url1, sep='\t', skiprows=30,
                      names=['agency_cd', 'site_no', 'datetime', 'flow',
@@ -48,15 +49,17 @@ data['month'] = pd.DatetimeIndex(data['datetime']).month
 data['day'] = pd.DatetimeIndex(data['datetime']).day
 data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 
-
 # Xenia: Note that Now Mondays are represented by "dayofweek = 0" and Sundays \
 # are represented by "dayofweek = 6"
 
+#%%
 # Aggregate flow values to weekly.
 # Xenia: Here I changed from mean function, to min function, because I want \
 # to consider just the minimun values of each week.
 flow_weekly = data.resample("W", on='datetime').min().round(2)
 
+#Adding timezone = UTC to the flow data, to join the Mesowest data after
+flow_weekly.index = flow_weekly.index.tz_localize(tz="UTC")
 
 # Erasing the column called 'datetime' to join the MesoData after
 del flow_weekly['datetime']
@@ -64,7 +67,7 @@ print(flow_weekly)
 print()
 
 # %%
-# Mesonet: Temperature & Precipitation data
+# Mesowest: Temperature & Precipitation data
 # First Create the URL for the rest API
 # Insert your token here
 mytoken = 'demotoken'
@@ -87,10 +90,12 @@ args = {
 # (Note you could also do this by hand, but this is better)
 apiString = urllib.parse.urlencode(args)
 print(apiString)
+print()
 
 # add the API string to the base_url
 fullUrl = base_url + '?' + apiString
-print('fullUrl is: ', fullUrl)
+print('The Mesowest data is obtained from: ', fullUrl)
+print()
 
 # %%
 # Now we are ready to request the data
@@ -126,29 +131,14 @@ dateTime = responseDict['STATION'][0]['OBSERVATIONS']['date_time']
 airT = responseDict['STATION'][0]['OBSERVATIONS']['air_temp_set_1']
 precip = responseDict['STATION'][0]['OBSERVATIONS']['precip_accum_set_1']
 
-
 # %%
 # Now we can combine this into a pandas dataframe
 data_Meso = pd.DataFrame({'Temperature': airT, 'Precipitation': precip},
                          index=pd.to_datetime(dateTime))
 
-data_Meso = data_Meso.groupby(level=0).mean()
-
-# Convert from timezone to none
-data_Meso.index.tz_convert(None)
-
 # Now convert this to daily data using resample
 data_daily = data_Meso.resample('D').mean().round(2)
 data_weekly = data_Meso.resample('W').mean().round(2)
-
-# Convert from timezone to none
-data_no_tz = data_weekly.copy()
-data_no_tz.tz_convert('CET')
-data_no_tz.index.tz = None
-
-data_weekly.index.tz_convert(None)
-
-datetime = pd.to_datetime(dateTime, format='%Y-%m-%d')
 
 # %%
 # Building an autoregressive model
@@ -163,6 +153,8 @@ data_weekly['temp_tm2'] = data_weekly['Temperature'].shift(2)
 data_weekly['precip_tm1'] = data_weekly['Precipitation'].shift(1)
 data_weekly['precip_tm2'] = data_weekly['Precipitation'].shift(2)
 
+#Merge the USGS data (flow) with the Mesowest data (precip. and temp.)
+union = flow_weekly.join(data_weekly)
 
 # %%
 # Step 2 - pick what portion of the time series you want to use as training \
@@ -474,7 +466,6 @@ plt.show()
 # Load a regression dataset
 X, y = load_concrete()
 
-# %%
 # Create training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
 
@@ -560,4 +551,8 @@ datetime = pd.to_datetime(data2.year_day, format='%Y-%m-%d')
 q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])
           + (model.coef_ * train2['precip_tm1'])
           + (model.coef_ * train2['temp_tm1'])).round(2)
+
+# If data is the name of a panda data frame with the flow, then:
+data.index = data.index.tz_localize(tz="UTC")
+
 

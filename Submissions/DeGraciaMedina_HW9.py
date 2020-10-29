@@ -4,12 +4,10 @@
 
 # %%
 # Import the modules we will use
-import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import datetime
-import os
 import json
 import urllib.request as req
 import urllib
@@ -28,12 +26,13 @@ from yellowbrick.regressor import ResidualsPlot
 # Read the data, from the website, into a pandas dataframe.
 Site = '09506000'
 Start = '1989-01-01'
-End = '2020-10-24'
+End = '2020-10-27'
 url1 = 'https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&' \
        'site_no='+Site+'&referred_module=sw&period=&' \
        'begin_date='+Start+'&end_date='+End
 
-print(url1)
+print('The flow data is obtained  from: ', url1)
+print()
 
 data = pd.read_table(url1, sep='\t', skiprows=30,
                      names=['agency_cd', 'site_no', 'datetime', 'flow',
@@ -48,25 +47,22 @@ data['month'] = pd.DatetimeIndex(data['datetime']).month
 data['day'] = pd.DatetimeIndex(data['datetime']).day
 data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 
-
-
 # Xenia: Note that Now Mondays are represented by "dayofweek = 0" and Sundays \
 # are represented by "dayofweek = 6"
 
+# %%
 # Aggregate flow values to weekly.
 # Xenia: Here I changed from mean function, to min function, because I want \
 # to consider just the minimun values of each week.
-flow_weekly = data.resample("W", on='datetime').min().round(2)
+flow_weekly = data.resample("W", on='datetime').mean().round(2)
 
+# Adding timezone = UTC to the flow data, to join the Mesowest data after
 flow_weekly.index = flow_weekly.index.tz_localize(tz="UTC")
-
-# Erasing the column called 'datetime' to join the MesoData after
-del flow_weekly['datetime']
 print(flow_weekly)
 print()
 
 # %%
-# Mesonet: Temperature & Precipitation data
+# Mesowest: Temperature & Precipitation data
 # First Create the URL for the rest API
 # Insert your token here
 mytoken = 'demotoken'
@@ -89,10 +85,12 @@ args = {
 # (Note you could also do this by hand, but this is better)
 apiString = urllib.parse.urlencode(args)
 print(apiString)
+print()
 
 # add the API string to the base_url
 fullUrl = base_url + '?' + apiString
-print('fullUrl is: ', fullUrl)
+print('The Mesowest data is obtained from: ', fullUrl)
+print()
 
 # %%
 # Now we are ready to request the data
@@ -128,29 +126,14 @@ dateTime = responseDict['STATION'][0]['OBSERVATIONS']['date_time']
 airT = responseDict['STATION'][0]['OBSERVATIONS']['air_temp_set_1']
 precip = responseDict['STATION'][0]['OBSERVATIONS']['precip_accum_set_1']
 
-
 # %%
 # Now we can combine this into a pandas dataframe
 data_Meso = pd.DataFrame({'Temperature': airT, 'Precipitation': precip},
                          index=pd.to_datetime(dateTime))
 
-data_Meso = data_Meso.groupby(level=0).mean()
-
-# Convert from timezone to none
-data_Meso.index.tz_convert(None)
-
-# Now convert this to daily data using resample
+# Now convert this to daily and weekly data using resample
 data_daily = data_Meso.resample('D').mean().round(2)
-data_weekly = data_Meso.resample('W').mean().round(2)
-
-# Convert from timezone to none
-data_no_tz = data_weekly.copy()
-data_no_tz.tz_convert('CET')
-data_no_tz.index.tz = None
-
-data_weekly.index.tz_convert(None)
-
-datetime = pd.to_datetime(dateTime, format='%Y-%m-%d')
+data_weekly = data_Meso.resample('W-SUN').mean().round(2)
 
 # %%
 # Building an autoregressive model
@@ -158,6 +141,7 @@ datetime = pd.to_datetime(dateTime, format='%Y-%m-%d')
 # Step 1: setup the arrays you will build your model on
 # This is an autoregressive model so we will be building it based on the \
 # Lagged timeseries
+
 flow_weekly['flow_tm1'] = flow_weekly['flow'].shift(1)
 flow_weekly['flow_tm2'] = flow_weekly['flow'].shift(2)
 data_weekly['temp_tm1'] = data_weekly['Temperature'].shift(1)
@@ -165,6 +149,29 @@ data_weekly['temp_tm2'] = data_weekly['Temperature'].shift(2)
 data_weekly['precip_tm1'] = data_weekly['Precipitation'].shift(1)
 data_weekly['precip_tm2'] = data_weekly['Precipitation'].shift(2)
 
+# Merge the USGS data (flow) with the Mesowest data (precip. and temp.)
+union = flow_weekly.join(data_weekly)
+
+# %%
+# Correlation of the Temperature data with the flow data
+correl_temp = round(union['flow'].corr(union['Temperature']), 2)
+# Correlation of the Precipitation data with the flow data
+print('Correlation with Temperature:', correl_temp)
+correl_precip = round(union['flow'].corr(union['Precipitation']), 2)
+print('Correlation with Precipitation:', correl_precip)
+
+correl_variables = [correl_temp, correl_precip]
+for i in correl_variables:
+    if i == correl_temp:
+        j = 'Temperature'
+    elif i == correl_precip:
+        j = 'Precipitation'
+    if abs(i) >= 0.4:
+        print('Strong correlation with', j)
+    elif 0.2 < abs(i) < 0.4:
+        print('Moderate correlation with', j)
+    elif abs(i) < 0.2:
+        print('Weak correlation with', j)
 
 # %%
 # Step 2 - pick what portion of the time series you want to use as training \
@@ -206,13 +213,14 @@ final_train_week = StudyYears_to_weeks(2004)
 
 train = flow_weekly.loc["2019-08-22":"2019-12-12"][[
       'flow', 'flow_tm1', 'flow_tm2']]
-train2 = data_weekly.loc["2019-08-22":"2019-12-12"][[
-         'Precipitation', 'precip_tm1', 'precip_tm2',
+train_temp = data_weekly.loc["2019-08-22":"2019-12-12"][[
          'Temperature', 'temp_tm1', 'temp_tm2']]
+train_prec = data_weekly.loc["2019-08-22":"2019-12-12"][[
+         'Precipitation', 'precip_tm1', 'precip_tm2']]
 
 
 # This shows the start and end of the training data.
-print("The training data was taken from ", train.index.min(), " to ",
+print("The training data was taken from: ", train.index.min(), "  to  ",
       train.index.max())
 print()
 
@@ -244,27 +252,26 @@ print()
 
 # Finally obtaining the train test value after using the function.
 test = flow_weekly[-years_to_weeks:][['flow', 'flow_tm1', 'flow_tm2']]
-test2 = data_weekly[-years_to_weeks:][[
-         'Precipitation', 'precip_tm1', 'precip_tm2',
+test_temp = data_weekly[-years_to_weeks:][[
          'Temperature', 'temp_tm1', 'temp_tm2']]
+test_prec = data_weekly[-years_to_weeks:][[
+         'Precipitation', 'precip_tm1', 'precip_tm2']]
 
 # %%
 # Step 3: Fit a linear regression model using sklearn
 x_flow = train['flow_tm1'].values.reshape(-1, 1)
-x_prec = train2['precip_tm1'].values.reshape(-1, 1)
-x_temp = train2['temp_tm1'].values.reshape(-1, 1)
+x_temp = train_temp['temp_tm1'].values.reshape(-1, 1)
+x_prec = train_prec['precip_tm1'].values.reshape(-1, 1)
 
-# %%
-x = train2['temp_tm1'].values.reshape(-1, 1)
-y = train[0:len(train2)]['flow'].values
+y = train['flow'].values
 
 # %%
 # Xenia: Shorten the steps to create the regression model
-model = LinearRegression().fit(x, y)
+model = LinearRegression().fit(x_flow, y)
 
 # Look at the results
 # R^2 values
-r_sq = model.score(x, y)
+r_sq = model.score(x_flow, y)
 print('coefficient of determination:', np.round(r_sq, 2))
 print()
 
@@ -282,7 +289,7 @@ q_pred_test = model.predict(test['flow_tm1'].values.reshape(-1, 1))
 
 # Alternatively you can calcualte this yourself like this:
 # Xenia: y = b + m(x)
-q_pred = (model.intercept_ + (model.coef_ * train2['temp_tm1'])).round(2)
+q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])).round(2)
 
 # Xenia: Printing the final equation of the model
 print('The AR model equation is:  y =', model.intercept_.round(2), '+',
@@ -318,11 +325,8 @@ def weeklyforecast(i):
       """
 
     past_weeks_flow = flow_weekly['flow'][-i]
-    past_weeks_precip = data_weekly['Precipitation'][-i]
-    past_weeks_temp = data_weekly['Temperature'][-i]
-    weekly_AR_pred = (model.intercept_ + model.coef_ * past_weeks_flow
-                      + model.coef_ * past_weeks_precip
-                      + model.coef_ * past_weeks_temp).round(2)
+    weekly_AR_pred = (model.intercept_ + (model.coef_ * past_weeks_flow)
+                      ).round(2)
     return weekly_AR_pred
 
 
@@ -378,9 +382,8 @@ q_pred2_train = model2.predict(train[['flow_tm1', 'flow_tm2']])
 
 # or by hand
 q_pred2 = model2.intercept_   \
-         + model2.coef_[0] * train['flow_tm1'] \
-         + model2.coef_[0] * train2['precip_tm1'] \
-         + model2.coef_[1] * train2['temp_tm1']
+         + model2.coef_[0] * train['flow_tm1']
+
 
 # %%
 # PLOTS
@@ -433,6 +436,7 @@ ax.legend()
 # Xenia: Saving my plots
 fig.set_size_inches(7, 5)
 fig.savefig("3._Flow_Simulation_Done.png")
+
 # %%
 # 4. Scatter plot of t vs t-1 flow with log log axes
 fig, ax = plt.subplots()
@@ -476,7 +480,6 @@ plt.show()
 # Load a regression dataset
 X, y = load_concrete()
 
-# %%
 # Create training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
 
@@ -492,78 +495,34 @@ plt.savefig("6._Residuals_Plot.png")
 fig.savefig("6._Residuals_Plot.png")
 
 # %%
-# New Plots
+# New Plots with Temperature & Precipitation
 
 # 1. Timeseries of observed flow values
-# Note that date is the index for the dataframe so it will
-# automatically treat this as our x axis unless we tell it otherwise
 fig, ax = plt.subplots()
-ax.plot(flow_weekly['flow'], label='full', color='black', linewidth=0.5)
-ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation', color='aqua', linestyle='-',
-        alpha=0.5, linewidth=4)
-ax.plot(data_weekly['Temperature'], 'r:', label='Temperature', color='gold', linestyle='-',
-        alpha=0.5, linewidth=4)
-ax.set(title="Flow, Precipitation & Temperature", xlabel="Date",
-       ylabel="Weekly Avg Flow [cfs]",
+ax.plot(flow_weekly['flow'], label='Streamflow', color='black', linewidth=0.5)
+ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation',
+        color='aqua', linestyle='-', alpha=1, linewidth=1)
+ax.plot(data_weekly['Temperature'], 'r:', label='Temperature', color='red',
+        linestyle='-', alpha=1, linewidth=0.5)
+ax.set(title="Entire record", xlabel="Date",
+       ylabel="Weekly Avg values",
        yscale='log')
 ax.legend()
+fig.set_size_inches(7, 5)
+fig.savefig("1._Entire_record.png")
 
 # 2. Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
-ax.plot(flow_weekly['flow'], label='full', color='black', linewidth=0.5)
-ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation', color='aqua', linestyle='-',
-        alpha=0.5, linewidth=4)
-ax.plot(data_weekly['Temperature'], 'r:', label='Temperature', color='gold', linestyle='-',
-        alpha=0.5, linewidth=4)
-ax.set(title="2018-2021", xlabel="Date",
-       ylabel="Weekly Avg Flow [cfs]",
+ax.plot(flow_weekly['flow'], label='Streamflow', color='black', linewidth=1)
+ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation',
+        color='aqua', linestyle='-', alpha=1, linewidth=2)
+ax.plot(data_weekly['Temperature'], 'r:', label='Temperature', color='red',
+        linestyle='-', alpha=1, linewidth=1)
+ax.set(title="2018-2021 data", xlabel="Date", ylabel="Weekly Avg values",
        yscale='log', xlim=[datetime.date(2018, 8, 24),
                            datetime.date(2021, 1, 15)])
 ax.legend()
 fig.set_size_inches(7, 5)
-fig.savefig("2._Testing,_Training_&_Real_Flow.png")
+fig.savefig("2._2018-2021_Data.png")
 
 # %%
-# NOTES - DO NOT USE THIS
-# Coordinates of Station of Verde River: Latitude 34°26'54", Longitude 111°47'21"
-# Decimal Coordinates of Verde River: Lat: 34.44833333 - Long: -111.78916667
-# Verde River UTM Coordinates: 12 N 427506 3812151
-# Sedona Airport Station of the MesoWest is the nearest
-urlXbase = https://api.synopticdata.com/v2/stations/metadata?token=mytoken&radius=latitude,longitude,10&limit=10
-# Example accessing it as a csv
-url = "https://daymet.ornl.gov/single-pixel/api/data?lat=34.9455&lon=-113.2549" \
-       "&vars=prcp&years=&format=csv"
-
-       'stids': 'QVDA3',
-
-pd.concat([flow_weekly, data_weekly], sort=True)
-
-local_datetime = datetime.datetime.now()
-local_datetime_timestamp = float(local_datetime.strftime("%s"))
-UTC_datetime_converted = datetime.datetime.utcfromtimestamp(local_datetime_timestamp)
-
-# Convert from timezone to none
-data_Meso.tz_convert(None)
-data_Meso.index.tz_convert(None)
-
-data.tz_localize('UTC', ambiguous='infer')
-data.index = data.index.tz_localize(tz="UTC")
-data.tz_localize('UTC')
-
-union = flow_weekly.join(data_weekly)
-
-data2["year"] = data2["year"].astype(str)
-data2["yday"] = data2["yday"].astype(str)
-data2["year"] = data2["year"].str.slice(0, -2)
-data2["yday"] = data2["yday"].str.slice(0, -2)
-data2["year_day"] = data2 ["year"].str.cat(data2["yday"], sep = ' ')
-datetime = pd.to_datetime(data2.year_day, format='%Y-%m-%d')
-
-q_pred = (model.intercept_ + (model.coef_ * train['flow_tm1'])
-          + (model.coef_ * train2['precip_tm1'])
-          + (model.coef_ * train2['temp_tm1'])).round(2)
-
-# If data is the name of a panda data frame with the flow, then:
-data.index = data.index.tz_localize(tz="UTC")
-
-
