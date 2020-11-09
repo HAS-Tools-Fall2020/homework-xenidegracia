@@ -47,7 +47,7 @@ data['month'] = pd.DatetimeIndex(data['datetime']).month
 data['day'] = pd.DatetimeIndex(data['datetime']).day
 data['dayofweek'] = pd.DatetimeIndex(data['datetime']).dayofweek
 
-# Xenia: Note that Now Mondays are represented by "dayofweek = 0" and Sundays \
+# Xenia: NOTE that Now Mondays are represented by "dayofweek = 0" and Sundays \
 # are represented by "dayofweek = 6"
 
 # %%
@@ -388,22 +388,6 @@ q_pred2 = model2.intercept_   \
 # %%
 # PLOTS
 
-# 1. Timeseries of observed flow values
-# Note that date is the index for the dataframe so it will
-# automatically treat this as our x axis unless we tell it otherwise
-fig, ax = plt.subplots()
-ax.plot(flow_weekly['flow'], label='full', color='black', linewidth=0.5)
-ax.plot(train['flow'], 'r:', label='training', color='aqua', linestyle='-',
-        alpha=0.5, linewidth=4)
-ax.set(title="1. Entire Flow Data Since 1989", xlabel="Date",
-       ylabel="Weekly Avg Flow [cfs]",
-       yscale='log')
-ax.legend()
-
-# Saving the figure to a file
-fig.set_size_inches(7, 5)
-fig.savefig("1._Entire_Flow_Data_Since_1989.png")
-
 # 2. Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
 ax.plot(flow_weekly['flow'], label='full', color='black', linewidth=0.5)
@@ -497,21 +481,7 @@ fig.savefig("6._Residuals_Plot.png")
 # %%
 # New Plots with Temperature & Precipitation
 
-# 1. Timeseries of observed flow values
-fig, ax = plt.subplots()
-ax.plot(flow_weekly['flow'], label='Streamflow', color='black', linewidth=0.5)
-ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation',
-        color='aqua', linestyle='-', alpha=1, linewidth=1)
-ax.plot(data_weekly['Temperature'], 'r:', label='Temperature', color='red',
-        linestyle='-', alpha=1, linewidth=0.5)
-ax.set(title="Entire record", xlabel="Date",
-       ylabel="Weekly Avg values",
-       yscale='log')
-ax.legend()
-fig.set_size_inches(7, 5)
-fig.savefig("1._Entire_record.png")
-
-# 2. Time series of flow values with the x axis range limited
+# Time series of flow values with the x axis range limited
 fig, ax = plt.subplots()
 ax.plot(flow_weekly['flow'], label='Streamflow', color='black', linewidth=1)
 ax.plot(data_weekly['Precipitation'], 'r:', label='Precipitation',
@@ -523,6 +493,6 @@ ax.set(title="2018-2021 data", xlabel="Date", ylabel="Weekly Avg values",
                            datetime.date(2021, 1, 15)])
 ax.legend()
 fig.set_size_inches(7, 5)
-fig.savefig("2._2018-2021_Data.png")
+fig.savefig("2018-2021_Data.png")
 
 # %%
