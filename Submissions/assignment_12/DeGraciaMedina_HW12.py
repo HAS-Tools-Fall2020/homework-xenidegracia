@@ -28,7 +28,7 @@ from netCDF4 import Dataset
 # Volumetric Soil Moisture from a NetCDF file
 # Downloaded the data from https://psl.noaa.gov/cgi-bin/db_search/DBSearch.pl?Dataset=NCEP+Reanalysis+Daily+Averages&Variable=Volumetric+Soil+Moisture&group=0&submit=Search
 # Net CDF file historical time series
-data_path = os.path.join('../../Geodatabases',
+data_path = os.path.join('../../../Geodatabases',
                          'Reanalysis_VolumetricSoilMoisture.nc')
 
 # Read in the dataset as an x-array
@@ -63,7 +63,9 @@ one_pointSM.plot.line(hue='lat',
                       color="grey",
                       markerfacecolor="purple",
                       markeredgecolor="purple")
-ax.set(title="Time Series For a Single Lat / Lon Location")
+ax.set(title="Soil Moisture Time Series For a Single Lat / Lon Location")
+
+plt.savefig("Soil_Moisture_Time_Series.png")
 
 # Convert to dataframe
 Soil_Moist_df = one_pointSM.to_dataframe()
