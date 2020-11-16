@@ -286,3 +286,19 @@ print(JanData.head)
 # %%
 data.flow.head()[2:5]
 # %%
+filename = 'streamflow_week6.txt'
+# Xenia: Create a datapath variable to ensure the correct address
+datapath = 'C:/Users/xy_22/Documents/MSc._Hydrology/2020_Fall/599-HAS_Tools/homework-xenidegracia/data'
+filepath = os.path.join(datapath, filename)
+
+data=pd.read_table(filepath, sep = '\t', skiprows=30,
+        names=['agency_cd', 'site_no', 'datetime', 'flow', 'code'],
+        parse_dates=['datetime']
+        )
+
+# %%
+dataJan = data.loc[1989-1-10:1989-1-12]
+
+dataJan2 = data[[datetime][1989-1-10:1989-1-12]]
+
+data[10:13]
