@@ -1,5 +1,5 @@
 ## Homework #12: *Hierarchical Data*
-### Author of the code:  *Xenia De Gracia Medina*.
+### Author of the code:  *Xenia De Gracia Medina*.:blush:
 ### Date: *November 16, 2020*.
 
 ---
@@ -50,9 +50,15 @@ I was so exited when I realized the high correlation between the soil moisture t
 
 4. Finally add your plot and a brief summary of what you did to our slide deck for this week here.
 
+I added this plot to the class slides, because on it we can see the relation between the soil moisture and the streamflow, and also the temperature.
+
+I did not put the Correlation matrix on the class slides, but I did put it in here, to demostrate better what I was explaining above.
+
 ![](assets/DeGraciaMedina_HW12-35c05800.png)
 
-![](assets/DeGraciaMedina_HW12-2120a430.png)
+![](assets/DeGraciaMedina_HW12-327cff4b.png)
+
+
 
 ---
 <a name="weekly"></a>
@@ -65,3 +71,5 @@ I was so exited when I realized the high correlation between the soil moisture t
 >### **Regression based Weekly Forecast for submission**
     Week 1: 143.84 cfs
     Week 2: 171.79 cfs
+
+![](assets/DeGraciaMedina_HW12-2120a430.png)
