@@ -347,7 +347,7 @@ print()
 # %%
 # AVERAGE SECOND WEEK FORECAST.
 # LC - i'm a little confused about the tail 14 here?
-# I used the las 14 days to calc the average value for the second week forecast
+# I used the last 14 days to calc the average value for the second week forecast
 flow_mean2 = ((data['flow'].tail(14)).mean()).round(2)  # .round(2)
 print('The AVERAGE forecast for the SECOND week that comes is:', flow_mean2,
       'cf/s.')
