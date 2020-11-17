@@ -1,6 +1,10 @@
 ## Homework #12: ***Hierarchical Data***
 ### Author of the code:  *Xenia De Gracia Medina*. :blush:
 ### Date: *November 16, 2020*.
+___
+### Grade
+3/3 - Great job! I really like all of the analysis you did here.
+
 
 ---
 ### Table of Content:
