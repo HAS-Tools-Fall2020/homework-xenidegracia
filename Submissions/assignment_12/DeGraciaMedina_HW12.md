@@ -46,7 +46,7 @@ The time lapse used for the dataframe was:
 I grabbed my dataset from the [NOAA Physical Science Laboratory webpage](https://psl.noaa.gov/cgi-bin/DataAccess.pl?DB_dataset=NCEP+Reanalysis+Daily+Averages&DB_variable=Volumetric+Soil+Moisture&DB_statistic=Mean&DB_tid=89392&DB_did=195&DB_vid=1277)
 
 - **What was your approach to extracting and aggregating it into something useful to you?**
-I was so exited when I realized the high correlation between the soil moisture that I extracted from the dataset, and the flow and also between the soil moister and the temperature. That confirms the relation that they have and how the streamflow that we are studying is affected by those factors.
+I was so exited when I realized the high correlation between the soil moisture that I extracted from the dataset, and the flow and also between the soil moisture and the temperature. That confirms the relation that they have and how the streamflow that we are studying is affected by those factors.
 
 **3. A plot of the dataset you added. This can be a timeseries, map, histogram or any other plot that you think is a good summary of what you added.**
 
