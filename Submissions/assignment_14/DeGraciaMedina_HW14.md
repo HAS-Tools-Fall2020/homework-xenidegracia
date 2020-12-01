@@ -2,6 +2,8 @@
 ### Author:  *Xenia De Gracia Medina*.
 ### Date: *December 01, 2020*.
 
+## Grade
+3/3 - nice work.
 ---
 ### Table of Content:
 - [ Questionnaire](#quest)
