@@ -1,0 +1,8 @@
+ENter to this link:
+https://colab.research.google.com/notebooks/intro.ipynb
+
+Go to File -> New Notebook (to make this you must have enough space on your google drive account, if you don't have it, \
+it will not open)
+
+Go to +TEXT to add a text cell (i.e. text that you would like to show as a Markdown)
+Go to +Code to add a code cell (i.e. code from which you would like to obtain results)
