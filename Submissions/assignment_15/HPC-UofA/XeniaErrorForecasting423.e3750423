@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "XeniasForecastingScript.py", line 25, in <module>
-    import shapely
-ModuleNotFoundError: No module named 'shapely'

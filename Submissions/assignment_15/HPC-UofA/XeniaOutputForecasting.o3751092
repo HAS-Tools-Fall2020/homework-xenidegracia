@@ -1,0 +1,56 @@
+here
+The flow data is obtained  from:  https://waterdata.usgs.gov/nwis/dv?cb_00060=on&format=rdb&site_no=09506000&referred_module=sw&period=&begin_date=1989-01-01&end_date=2020-12-05
+
+                          agency_cd  site_no  log_flow  ... month  day dayofweek
+datetime                                                ...                     
+1989-01-01 00:00:00+00:00      USGS  9506000  5.332719  ...     1    1         6
+1989-01-02 00:00:00+00:00      USGS  9506000  5.323010  ...     1    2         0
+1989-01-03 00:00:00+00:00      USGS  9506000  5.323010  ...     1    3         1
+1989-01-04 00:00:00+00:00      USGS  9506000  5.446737  ...     1    4         2
+1989-01-05 00:00:00+00:00      USGS  9506000  5.556828  ...     1    5         3
+...                             ...      ...       ...  ...   ...  ...       ...
+2020-12-01 00:00:00+00:00      USGS  9506000  5.068904  ...    12    1         1
+2020-12-02 00:00:00+00:00      USGS  9506000  5.056246  ...    12    2         2
+2020-12-03 00:00:00+00:00      USGS  9506000  5.056246  ...    12    3         3
+2020-12-04 00:00:00+00:00      USGS  9506000  5.068904  ...    12    4         4
+2020-12-05 00:00:00+00:00      USGS  9506000  5.087596  ...    12    5         5
+
+[11662 rows x 10 columns]
+
+The training data was taken from:  2019-08-22 00:00:00+00:00   to   2019-12-12 00:00:00+00:00
+
+coefficient of determination: 0.92
+intercept: 0.18
+slope: [0.97]
+The AR model equation is:  y = 0.18 + [0.97]X
+Prediction using equation from Linear Regression is: datetime
+2019-08-25 00:00:00+00:00      31.816977
+2019-09-01 00:00:00+00:00      34.123968
+2019-09-08 00:00:00+00:00      54.054889
+2019-09-15 00:00:00+00:00      51.418601
+2019-09-22 00:00:00+00:00      51.418601
+2019-09-29 00:00:00+00:00      54.054889
+2019-10-06 00:00:00+00:00      75.944287
+2019-10-13 00:00:00+00:00      80.640419
+2019-10-20 00:00:00+00:00      76.707539
+2019-10-27 00:00:00+00:00      80.640419
+2019-11-03 00:00:00+00:00     100.484150
+2019-11-10 00:00:00+00:00     126.469352
+2019-11-17 00:00:00+00:00     132.953574
+2019-11-24 00:00:00+00:00     144.026887
+2019-12-01 00:00:00+00:00     181.272242
+2019-12-08 00:00:00+00:00     437.029195
+2019-12-15 00:00:00+00:00    1053.633557
+Freq: W-SUN, Name: flow_tm1, dtype: float64
+<class 'pandas.core.series.Series'>
+First week prediction based on my AR model: 158.62 ft3/s
+
+Second week prediction based on my on my AR model: 159.6 ft3/s
+
+The AVERAGE forecast for the FIRST week that comes is: 152.62 ft3/s
+
+The AVERAGE forecast for the SECOND week that comes is: 154.0 ft3/s
+
+['First week prediction based on my AR model: 158.62 ft3/s', 'Second week prediction based on my on my AR model: 159.6 ft3/s', 'The AVERAGE forecast for the FIRST week that comes is: 152.62 ft3/s', 'The AVERAGE forecast for the SECOND week that comes is: 154.0 ft3/s']
+Your group tmeixner has been charged 0:00:33 (0:00:33 X 1 cpus).
+You previously had 35970:26:13.  You now have 35970:25:40 of standard_time remaining
