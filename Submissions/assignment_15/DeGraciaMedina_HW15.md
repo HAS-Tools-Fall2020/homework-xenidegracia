@@ -15,6 +15,7 @@
 - I requested 1 node, 1 core and 6gb of memory total.
 
 **View of the run_python.pbs**
+
 ![](assets/DeGraciaMedina_HW15-711ece62.png)
 
 ### 2. What was the most confusing part to you about setting up and running your job on Ocelote?
@@ -44,9 +45,11 @@ Between my confusing moments were:
 - I found `GoogleColab` easier then `Ocelote` because on `Ocelote` I had to set up carefully to made it run and obtain results.
 
 **Obtaining results on Google Colab:**
+
 ![](assets/DeGraciaMedina_HW15-d7d374de.png)
 
 **Obtaining results on Ocelote:**
+
 ![](assets/DeGraciaMedina_HW15-8eac1c32.png)
 
 ### 4. What questions do you still have after doing this?
