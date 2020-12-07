@@ -8,3 +8,10 @@ Go to +TEXT to add a text cell (i.e. text that you would like to show as a Markd
 Go to +Code to add a code cell (i.e. code from which you would like to obtain results)
 
 Begin copying and pasting your code on each cell like it was a JupyterNotebook :3
+
+Remember save your changes on:
+File -> Save
+
+To download it:
+Go to File -> "Download as .ipynb" or "Download as .py"
+Or use "Save a copy in GitHub" also if you prefer.
