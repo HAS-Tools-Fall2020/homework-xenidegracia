@@ -2,6 +2,9 @@
 ### Author:  *Xenia De Gracia Medina*.
 ### Date: *December 07, 2020*.
 
+#### Grade
+3/3 - Nice work with the debugging! In answer to your question - yes Ocelote can write outputs like csvs and plots. 
+
 ---
 ### Table of Content:
 - [ Questionnaire](#quest)
